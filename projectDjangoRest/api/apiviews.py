@@ -34,10 +34,12 @@ class ProductoDetalle(generics.RetrieveDestroyAPIView):
     serializer_class = ProductoSerializer
 
 class ProductoSave(generics.CreateAPIView):
+    #permite crear entidades pero no las lista
     serializer_class = ProductoSerializer
 
 #Categorias
 class CategoriaList(generics.ListCreateAPIView):
+    #devuelve una lista de entindades o las crea
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
@@ -51,5 +53,6 @@ class SubCategoriaSave(generics.CreateAPIView):
     serializer_class = SubCategoriaSerializer
 
 class SubCategoriaList(generics.ListCreateAPIView):
+    #devuelve una lista de entindades o las crea
     queryset = SubCategoria.objects.all()
     serializer_class = SubCategoriaSerializer
