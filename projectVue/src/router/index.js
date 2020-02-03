@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
+import ListProductos from '@/components/productos/ListProductos'
 
 Vue.use(Router)
 
@@ -10,6 +11,12 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path: '/productos',
+      name: 'ListProductos',
+      component: ListProductos
     }
-  ]
+  ],
+  mode: 'history'
 })
