@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         getArticulos() {
-            const path = 'localhost:8000/api/v1/articulos'
+            const path = 'localhost:8000/api/v1/productos'
             axios.get(path)
             .then( response => {
                 this.articulos = response.data

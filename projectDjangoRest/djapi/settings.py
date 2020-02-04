@@ -87,9 +87,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'drf_api',
-        'HOST': '127.0.0.1',
-        'USER': 'pablo',
-        'PASSWORD': '0235',
+        'HOST': 'database-djrest.ctlxtwhlsphw.us-east-2.rds.amazonaws.com',
+        'USER': 'tedescodev',
+        'PASSWORD': 'xxx8090235pp',
         'PORT': 5432
     }
 }
