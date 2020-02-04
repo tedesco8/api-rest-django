@@ -8,13 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.config.productionTip = false
-<<<<<<< HEAD
-// Install BootstrapVue
 Vue.use(BootstrapVue)
-// Optionally install the BootstrapVue icon components plugin
-=======
-Vue.use(BootstrapVue)
->>>>>>> 50064ca901cdd3627d852481444be7a4bb2d0abd
 Vue.use(IconsPlugin)
 
 /* eslint-disable no-new */
