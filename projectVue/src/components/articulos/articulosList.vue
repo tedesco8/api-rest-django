@@ -20,6 +20,7 @@ import  axios from "axios";
 export default {
     data () {
         return {
+            //probando merge
             fields: [
                 {key: 'id', label: 'ID'},
                 {key: 'descripcion', label: 'Descripción'},
