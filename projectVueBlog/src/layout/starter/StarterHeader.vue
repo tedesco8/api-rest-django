@@ -8,7 +8,7 @@
             <div class="row" slot="content-header" slot-scope="{closeMenu}">
                 <div class="col-6 collapse-brand">
                     <a href="../index.html">
-                        <img src="img/brand/blue.png">
+                        <img src="img/brand/nmcuy.jpg">
                     </a>
                 </div>
                 <div class="col-6 collapse-close">
@@ -17,6 +17,7 @@
             </div>
 
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+                <!--Components-->
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-ui-04 d-lg-none"></i>
@@ -49,6 +50,7 @@
                         </div>
                     </div>
                 </li>
+                <!--Examples-->
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-collection d-lg-none"></i>
@@ -62,6 +64,7 @@
                     </div>
                 </li>
             </ul>
+            <!--Social Icons-->
             <ul class="navbar-nav align-items-lg-center ml-lg-auto">
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="https://www.facebook.com/creativetim" target="_blank"
