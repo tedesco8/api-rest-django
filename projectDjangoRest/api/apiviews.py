@@ -3,10 +3,16 @@
 # from django.shortcuts import get_object_or_404
 from rest_framework import generics
 
+# otra manera de agregar subcategorias
+from rest_framework.views import APIView
+from rest_framework import status
+from rest_framework.response import Response
+
 from .models import Producto, Categoria, SubCategoria
 from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSerializer
 
 #-----------------------VISTAS-----------------------------
+
 # class ProductoList(APIView):
 #     def get(self, req):
 #         prod = Producto.objects.all()[:20]
@@ -22,7 +28,8 @@ from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSe
 
 
 #------------------VISTAS GENERICAS-------------------------
-#Productos
+
+#----------------------------------Productos--------------------------------------
 class ProductoList(generics.ListCreateAPIView):
     #devuelve una lista de entindades o las crea
     queryset = Producto.objects.all()
@@ -37,7 +44,7 @@ class ProductoSave(generics.CreateAPIView):
     #permite crear entidades pero no las lista
     serializer_class = ProductoSerializer
 
-#Categorias
+#----------------------------------Categorias---------------------------------------
 class CategoriaList(generics.ListCreateAPIView):
     #devuelve una lista de entindades o las crea
     queryset = Categoria.objects.all()
@@ -51,18 +58,30 @@ class CategoriaSave(generics.CreateAPIView):
     #permite crear entidades pero no las lista
     serializer_class = CategoriaSerializer
 
-#Subcategorias
+#---------------------------------Subcategorias-------------------------------------
 # class SubCategoriaList(generics.ListCreateAPIView):
 #     #devuelve una lista de entindades o las crea
 #     queryset = SubCategoria.objects.all()
 #     serializer_class = SubCategoriaSerializer
-
-class SubCategoriaSave(generics.CreateAPIView):
-    #permite crear entidades pero no las lista
-    serializer_class = SubCategoriaSerializer
 
 class SubCategoriaList(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = SubCategoria.objects.filter(categoria_id=self.kwargs["pk"])
         return queryset
     serializer_class = SubCategoriaSerializer
+
+#vamos a sobrescribir el metodo post, tomando en cuenta el valor de la categoria
+class SubCategoriaSave(APIView):
+    def post(self, request, cat_pk):
+        descripcion = request.data.get("descripcion")
+        data = {
+            "categoria": cat_pk,
+            "descripcion": descripcion
+        }
+        serializer = SubCategoriaSerializer(data=data)
+        if serializer.is_valid():
+            subcat = serializer.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+        

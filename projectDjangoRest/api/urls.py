@@ -9,6 +9,6 @@ urlpatterns = [
     path('v1/categorias/add', CategoriaSave.as_view(), name = 'categoria_save'),
     path('v1/categorias/<int:pk>', CategoriaDetalle.as_view(), name='categoria_detalle'),
     path('v1/subcategorias/', SubCategoriaList.as_view(), name = 'subcategoria_list'),
-    path('v1/subcategorias/add', SubCategoriaSave.as_view(), name = 'subcategoria_save'),
+    path('v1/categorias/<int:pk>/subcategorias/<int:cat_pk>/add', SubCategoriaSave.as_view(), name = 'subcategoria_save'),
     path('v1/categorias/<int:pk>/subcategorias/', SubCategoriaList.as_view(), name='sc_list')
 ]
