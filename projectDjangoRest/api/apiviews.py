@@ -43,16 +43,26 @@ class CategoriaList(generics.ListCreateAPIView):
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
+class CategoriaDetalle(generics.RetrieveDestroyAPIView):
+    queryset = Categoria.objects.all()
+    serializer_class = CategoriaSerializer
+
 class CategoriaSave(generics.CreateAPIView):
     #permite crear entidades pero no las lista
     serializer_class = CategoriaSerializer
 
 #Subcategorias
+# class SubCategoriaList(generics.ListCreateAPIView):
+#     #devuelve una lista de entindades o las crea
+#     queryset = SubCategoria.objects.all()
+#     serializer_class = SubCategoriaSerializer
+
 class SubCategoriaSave(generics.CreateAPIView):
     #permite crear entidades pero no las lista
     serializer_class = SubCategoriaSerializer
 
 class SubCategoriaList(generics.ListCreateAPIView):
-    #devuelve una lista de entindades o las crea
-    queryset = SubCategoria.objects.all()
+    def get_queryset(self):
+        queryset = SubCategoria.objects.filter(categoria_id=self.kwargs["pk"])
+        return queryset
     serializer_class = SubCategoriaSerializer

@@ -1,6 +1,25 @@
 from django.db import models
 
-# Create your models here.
+# Django models utilities
+
+class CRideModel(models.Model):
+    created = models.DateTimeField(
+        'created at',
+        auto_now_add = True,
+        help_text = 'Date time on which the object was created.'
+    )
+    modified = models.DateTimeField(
+        'modified at',
+        auto_now = True,
+        help_text = 'Date time on which the object was last created.'
+    )
+    class Meta:
+        abstract = True
+
+        get_latest_by = 'created'
+        ordering = ['-created', '-modified']
+
+# Create your models here
 class Categoria(models.Model):
     descripcion = models.CharField(
         max_length = 100,
