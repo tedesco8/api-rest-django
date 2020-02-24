@@ -7,6 +7,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework import viewsets
 
 from .models import Producto, Categoria, SubCategoria
 from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSerializer, UserSerializer
@@ -28,6 +29,7 @@ from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSe
 
 
 #------------------VISTAS GENERICAS-------------------------
+#Use genéricos.* Cuando solo desee permitir algunas operaciones en un modelo
 
 #----------------------------------Productos--------------------------------------
 class ProductoList(generics.ListCreateAPIView):
@@ -71,6 +73,7 @@ class SubCategoriaList(generics.ListCreateAPIView):
     serializer_class = SubCategoriaSerializer
 
 #----------------------------------APIVIEW-------------------------------------------
+#Usa APIView cuando quieras personalizar completamente el comportamiento
 
 #vamos a sobrescribir el metodo post, tomando en cuenta el valor de la categoria
 class SubCategoriaSave(APIView):
@@ -92,4 +95,11 @@ class UserCreate (generics.CreateAPIView):
     authentication_classes = ()
     permission_classes = ()
     serializer_class = UserSerializer
+
+#--------------------------------------VIEWSET---------------------------
+#Use viewsets.ModelViewSet cuando va a permitir todas o la mayoría de las operaciones CRUD en un modelo.
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
+
         
