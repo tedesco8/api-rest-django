@@ -9,7 +9,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from .models import Producto, Categoria, SubCategoria
-from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSerializer
+from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSerializer, UserSerializer
 
 #-----------------------VISTAS-----------------------------
 
@@ -70,6 +70,8 @@ class SubCategoriaList(generics.ListCreateAPIView):
         return queryset
     serializer_class = SubCategoriaSerializer
 
+#----------------------------------APIVIEW-------------------------------------------
+
 #vamos a sobrescribir el metodo post, tomando en cuenta el valor de la categoria
 class SubCategoriaSave(APIView):
     def post(self, request, cat_pk):
@@ -84,4 +86,10 @@ class SubCategoriaSave(APIView):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+class UserCreate (generics.CreateAPIView):
+    #invalidamos configuracion global, para que un usuario pueda crearse sin estar autenticado o tener permisos
+    authentication_classes = ()
+    permission_classes = ()
+    serializer_class = UserSerializer
         
