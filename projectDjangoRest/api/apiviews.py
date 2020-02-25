@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import viewsets
+from django.contrib.auth import authenticate
 
 from .models import Producto, Categoria, SubCategoria
 from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSerializer, UserSerializer
@@ -83,18 +84,46 @@ class SubCategoriaSave(APIView):
             "categoria": cat_pk,
             "descripcion": descripcion
         }
-        serializer = SubCategoriaSerializer(data=data)
+        serializer = SubCategoriaSerializer(data = data)
         if serializer.is_valid():
             subcat = serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+#----------------------------------Usuarios------------------------------
 class UserCreate (generics.CreateAPIView):
     #invalidamos configuracion global, para que un usuario pueda crearse sin estar autenticado o tener permisos
     authentication_classes = ()
     permission_classes = ()
     serializer_class = UserSerializer
+class LoginView(APIView):
+    #Deshabilitamos la autentication para realizar esta accion
+    permission_classes = ()
+    def post(self, request):
+
+        #capturamos el usuario y la contraseña
+        username = request.data.get("username")
+        password = request.data.get("password")
+
+        #validamos con la base
+        user = authenticate(username = username, password = password)
+
+        if user:
+            #si el usuario existe, le devolvemos un token
+            return Response(
+                {
+                    "token": user.auth_token.key
+                }
+            )
+        else:
+            #si el usuario no existe, enviamos un bad request
+            return Response(
+                {
+                    "error": "Credenciales incorrectas"
+                }, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
 #--------------------------------------VIEWSET---------------------------
 #Use viewsets.ModelViewSet cuando va a permitir todas o la mayoría de las operaciones CRUD en un modelo.
