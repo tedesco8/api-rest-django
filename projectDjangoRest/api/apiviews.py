@@ -35,6 +35,8 @@ from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSe
 #----------------------------------Productos--------------------------------------
 class ProductoList(generics.ListCreateAPIView):
     #devuelve una lista de entindades o las crea
+    authentication_classes = ()
+    permission_classes = ()
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
  

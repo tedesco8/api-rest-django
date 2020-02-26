@@ -18,7 +18,7 @@ urlpatterns = [
     path('v1/categorias/<int:pk>/subcategorias/<int:cat_pk>/add', SubCategoriaSave.as_view(), name = 'subcategoria_save'),
     path('v1/categorias/<int:pk>/subcategorias/', SubCategoriaList.as_view(), name='sc_list'),
     path('v3/user/', UserCreate.as_view(), name='user_create'),
-    path('v4/login', LoginView.as_view(), name='login'),
+    path('v4/login/', LoginView.as_view(), name='login'),
     path("v3/login-drf/", views.obtain_auth_token, name="login_drf"),
 ]
 
