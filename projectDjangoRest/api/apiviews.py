@@ -116,7 +116,8 @@ class LoginView(APIView):
             return Response(
                 {
                     "token": user.auth_token.key
-                }
+                },
+                status=status.HTTP_200_OK
             )
         else:
             #si el usuario no existe, enviamos un bad request
