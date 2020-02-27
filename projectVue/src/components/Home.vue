@@ -35,7 +35,7 @@
     },
     data() {
       return {
-        name: ''
+        name: 'Home'
       }
     }
   }

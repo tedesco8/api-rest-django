@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col text-left">
-                <h2>Listado de Artículos</h2>
+                <h2>Listado de Contenedores</h2>
                 <div class="col-md-12">
                     <b-table striped hover :items="articulos" :fields="fields">
                         <template v-slot:cell(action)="data">
