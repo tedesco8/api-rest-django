@@ -5,16 +5,31 @@ from rest_framework.authtoken.models import Token
 from .models import Producto, Categoria, SubCategoria
 
 class ProductoSerializer(serializers.ModelSerializer):
+    #con hiddenfield le decimos que el valor vaya oculto
+    owner = serializers.HiddenField(
+        #capturamos al usuario loggueado
+        default = serializers.CurrentUserDefault()
+    )
     class Meta:
         model = Producto
         fields = '__all__'
 
 class CategoriaSerializer(serializers.ModelSerializer):
+    #con hiddenfield le decimos que el valor vaya oculto
+    owner = serializers.HiddenField(
+        #capturamos al usuario loggueado
+        default = serializers.CurrentUserDefault()
+    )
     class Meta:
         model = Categoria
         fields = '__all__'
 
 class SubCategoriaSerializer(serializers.ModelSerializer):
+    #con hiddenfield le decimos que el valor vaya oculto
+    owner = serializers.HiddenField(
+        #capturamos al usuario loggueado
+        default = serializers.CurrentUserDefault()
+    )
     class Meta:
         model = SubCategoria
         fields = '__all__'

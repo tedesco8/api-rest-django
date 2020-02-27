@@ -9,6 +9,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import viewsets
 from django.contrib.auth import authenticate
+from .permissions import IsOwner
 
 from .models import Producto, Categoria, SubCategoria
 from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSerializer, UserSerializer
@@ -75,6 +76,13 @@ class SubCategoriaList(generics.ListCreateAPIView):
         return queryset
     serializer_class = SubCategoriaSerializer
 
+#----------------------------------Usuarios------------------------------
+class UserCreate (generics.CreateAPIView):
+    #invalidamos configuracion global, para que un usuario pueda crearse sin estar autenticado o tener permisos
+    authentication_classes = ()
+    permission_classes = ()
+    serializer_class = UserSerializer
+
 #----------------------------------APIVIEW-------------------------------------------
 #Usa APIView cuando quieras personalizar completamente el comportamiento
 
@@ -93,12 +101,7 @@ class SubCategoriaSave(APIView):
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
-#----------------------------------Usuarios------------------------------
-class UserCreate (generics.CreateAPIView):
-    #invalidamos configuracion global, para que un usuario pueda crearse sin estar autenticado o tener permisos
-    authentication_classes = ()
-    permission_classes = ()
-    serializer_class = UserSerializer
+
 class LoginView(APIView):
     #Deshabilitamos la autentication para realizar esta accion
     permission_classes = ()
@@ -133,5 +136,6 @@ class LoginView(APIView):
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
+    permission_classes = [IsOwner]
 
         
