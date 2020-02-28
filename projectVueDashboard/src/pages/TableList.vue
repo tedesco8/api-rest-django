@@ -39,13 +39,13 @@ export default {
         title: "Stripped Table",
         subTitle: "Here is a subtitle for this table",
         columns: [...tableColumns],
-        data: [...tableData]
+        data: []
       },
       table2: {
         title: "Table on Plain Background",
         subTitle: "Here is a subtitle for this table",
         columns: [...tableColumns],
-        data: [...tableData]
+        data: []
       }
     };
   },
@@ -54,7 +54,7 @@ export default {
           const path = 'http://localhost:8000/api/v1/productos'
           axios.get(path)
           .then( response => {
-              tableData = response.data
+              this.table1.data = response.data
           })
           .catch(error => console.log(error))
       }
