@@ -1,6 +1,7 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
+from rest_framework_simplejwt import views as jwt_views
 
 from api.apiviews import ProductoList, ProductoSave, ProductoDetalle, CategoriaSave, CategoriaList, CategoriaDetalle, SubCategoriaSave, SubCategoriaList, UserCreate, ProductoViewSet, LoginView
 
@@ -20,6 +21,8 @@ urlpatterns = [
     path('v3/user/', UserCreate.as_view(), name='user_create'),
     path('v4/login/', LoginView.as_view(), name='login'),
     path("v3/login-drf/", views.obtain_auth_token, name="login_drf"),
+    path("v2/token/", jwt_views.TokenObtainPairView.as_view(), name = 'token_obtain'),
+    path('v2/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 urlpatterns += router.urls

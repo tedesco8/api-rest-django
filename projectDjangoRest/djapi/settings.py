@@ -88,12 +88,12 @@ WSGI_APPLICATION = 'djapi.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'drf_api',
-        'HOST': 'database-djrest.ctlxtwhlsphw.us-east-2.rds.amazonaws.com',
-        'USER': 'tedescodev',
-        'PASSWORD': 'xxx8090235pp',
-        'PORT': 5432
+        'HOST': '82.194.90.10',
+        'USER': 'outbox_dev',
+        'PASSWORD': 'x8090235p',
+        'PORT': 3306
     }
 }
 
@@ -138,7 +138,8 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
