@@ -36,31 +36,35 @@ from .serializers import ProductoSerializer, CategoriaSerializer, SubCategoriaSe
 #----------------------------------Productos--------------------------------------
 class ProductoList(generics.ListCreateAPIView):
     #devuelve una lista de entindades o las crea
-    authentication_classes = ()
     permission_classes = ()
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
  
 class ProductoDetalle(generics.RetrieveDestroyAPIView):
+    permission_classes = ()
     #recupera los datos de una entidad o la elimina
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
 
 class ProductoSave(generics.CreateAPIView):
+    permission_classes = ()
     #permite crear entidades pero no las lista
     serializer_class = ProductoSerializer
 
 #----------------------------------Categorias---------------------------------------
 class CategoriaList(generics.ListCreateAPIView):
     #devuelve una lista de entindades o las crea
+    permission_classes = ()
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
 class CategoriaDetalle(generics.RetrieveDestroyAPIView):
+    permission_classes = ()
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
 class CategoriaSave(generics.CreateAPIView):
+    permission_classes = [IsOwner]
     #permite crear entidades pero no las lista
     serializer_class = CategoriaSerializer
 
@@ -71,6 +75,7 @@ class CategoriaSave(generics.CreateAPIView):
 #     serializer_class = SubCategoriaSerializer
 
 class SubCategoriaList(generics.ListCreateAPIView):
+    permission_classes = ()
     def get_queryset(self):
         queryset = SubCategoria.objects.filter(categoria_id=self.kwargs["pk"])
         return queryset
@@ -88,6 +93,7 @@ class UserCreate (generics.CreateAPIView):
 
 #vamos a sobrescribir el metodo post, tomando en cuenta el valor de la categoria
 class SubCategoriaSave(APIView):
+    permission_classes = ()
     def post(self, request, cat_pk):
         descripcion = request.data.get("descripcion")
         data = {

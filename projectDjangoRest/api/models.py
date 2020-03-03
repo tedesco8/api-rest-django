@@ -3,6 +3,7 @@ from django.conf import settings
 
 # Django models utilities
 
+#Clase abstracta que registra cuando se crea y se modifica un modelo
 class CRideModel(models.Model):
     created = models.DateTimeField(
         'created at',
