@@ -28,6 +28,6 @@ class Profile(CRideModel):
         default = 0,
         help_text = 'Reputació del usuario en base a depositos efectuados'
     )
-
+    #da error
     def __str__ (self):
         return str (self.user)
