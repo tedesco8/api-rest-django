@@ -26,7 +26,7 @@ class User(CRideModel, AbstractUser):
         blank = True
     )
 
-    #establecemos email como identificador principal
+    #establecemos el correo como identificador principal
     USERNAME_FIELD = 'email'
 
     #todos los usuarios que se crean tienen que tener al menos estos campos
