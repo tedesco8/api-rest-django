@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # from cride.core.validators import RegexValidator
 
-from .utils.models import CRideModel
-
+from ..utils.models import CRideModel
 
 class User(CRideModel, AbstractUser):
     #establecemos el email como campo unico
