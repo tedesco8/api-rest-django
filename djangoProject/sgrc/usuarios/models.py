@@ -6,7 +6,7 @@ from .utils.models import CRideModel
 
 
 class User(CRideModel, AbstractUser):
-    #establecemos el email como campo unico
+    #establecemos el correo eléctronico como campo unico
     email = models.EmailField(
         'email addres',
         unique = True,
