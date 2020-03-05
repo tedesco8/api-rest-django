@@ -6,8 +6,8 @@ from .permissions import IsOwner
 import pdb
 
 class ContenedorViewSet(viewsets.ModelViewSet):
-    queryset=Contenedor.objects.all()
-    serializer_class=ContenedorWriteSerializer
+    queryset = Contenedor.objects.all()
+    serializer_class = ContenedorWriteSerializer
     '''
     def get_queryset(self):
         return Contenedor.objects.all()

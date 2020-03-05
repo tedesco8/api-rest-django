@@ -17,17 +17,20 @@ class City(models.Model):
     )    
     lat = models.FloatField (
         default = 0,
-        blank=True,
-        null=True
+        blank = True,
+        null = True
     )
     lng = models.FloatField (
         default = 0,
-        blank=True,
-        null=True
+        blank = True,
+        null = True
     )
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField (
+        User, 
+        on_delete = models.CASCADE
+    )
 
     # picture = models.ImageField (
     #     'profile picture',
@@ -62,24 +65,27 @@ class Profile(models.Model):
     address = models.CharField (
         max_length = 500,
         blank = True,
-        null=True
+        null = True
     )
 
-    city = models.ForeignKey(City,null=True,blank=True, on_delete=models.SET_NULL,)
+    city = models.ForeignKey(
+        City,
+        null = True,
+        blank = True,
+        on_delete = models.SET_NULL
+    )
 
 
-    created = models.DateTimeField(
+    created = models.DateTimeField (
         'created at',
         auto_now_add = True,
         help_text = 'Date time on which the object was created.'
     )
-    modified = models.DateTimeField(
+    modified = models.DateTimeField (
         'modified at',
         auto_now = True,
         help_text = 'Date time on which the object was last created.'
     )
 
-
-    #da error
     def __str__ (self):
         return str (self.user)
