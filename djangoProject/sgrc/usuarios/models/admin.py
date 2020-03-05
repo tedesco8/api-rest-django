@@ -9,8 +9,8 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('users', 'reputation', 'deposit')
+    list_display = ('user', 'reputation', 'deposit')
     search_fields = ('user__username', 'user__email', 'user__first_name', 'user__last_name')
     list_filter = ('reputation')
 
-admin.site.register(User. CustomUserAdmin)
+admin.site.register(User, CustomUserAdmin)

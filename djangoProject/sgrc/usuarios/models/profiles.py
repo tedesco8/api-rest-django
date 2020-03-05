@@ -3,7 +3,7 @@ from django.db import models
 from ..utils.models import CRideModel
 
 class Profile(CRideModel):
-    users = models.OneToOneField (
+    user = models.OneToOneField (
         'users.User', 
         on_delete = models.CASCADE
     )
