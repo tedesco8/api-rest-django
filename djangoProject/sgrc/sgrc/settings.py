@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
+from datetime import timedelta
 
 import os
 
@@ -34,7 +35,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:8080'
 ]
 
-AUTH_USER_MODEL = 'usuarios.User'
+#AUTH_USER_MODEL = 'usuarios.User'
 
 # Application definition
 
@@ -48,8 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'contenedores',
-    'usuarios',
-    'rutas'
+    'usuarios',    
 ]
 
 MIDDLEWARE = [
@@ -136,3 +136,46 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+#RESTFRAMEWORK
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.IsAuthenticated',
+        #https://www.django-rest-framework.org/api-guide/permissions/#using-with-views-that-do-not-include-a-queryset-attribute
+        #'rest_framework.permissions.DjangoModelPermissions',
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        #sitio estatico
+        'rest_framework.authentication.SessionAuthentication',
+        #solo para test de api
+        'rest_framework.authentication.BasicAuthentication',
+        #mobile apps y one page app
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+
+}
+
+#django-restframwork-simplejwt
+#https://github.com/davesque/django-rest-framework-simplejwt#settings
+SIMPLE_JWT = {        
+    #token de accesso expira en 182 dias, si dentro los 20 dias siguientes
+    #no se consumen servicios, no se renovara el refreshtoken y este tambien
+    #expirara. Los clientes deben implementar la logica de su uso
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=182),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=202),
+    
+    #Para test
+    #'ACCESS_TOKEN_LIFETIME': timedelta(seconds=15),
+    #'REFRESH_TOKEN_LIFETIME': timedelta(seconds=25),
+    
+    'ROTATE_REFRESH_TOKENS' : True,
+}

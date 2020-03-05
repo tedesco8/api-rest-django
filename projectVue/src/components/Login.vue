@@ -37,17 +37,17 @@ export default {
     },
     methods: {
         ingresar(){
-            axios.post('usuario/login',{email: this.email, password: this.password})
+            axios.post('v2/login/',{username: this.email, password: this.password})
             .then(respuesta =>{
-                return respuesta.data;
+                return respuesta.data;               
             })
             .then(data =>{
                 swal({
               title: "Genial!",
               text: "Bienvenido a SIGESCO",
               icon: "success"
-            });
-                this.$store.dispatch("guardarToken", data.tokenReturn);
+            });                
+                this.$store.dispatch("guardarToken", data);                
                 this.$router.push({name: 'home'});
             })
             .catch(error =>{
