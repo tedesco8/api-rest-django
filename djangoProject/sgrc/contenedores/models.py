@@ -24,7 +24,8 @@ class CRideModel(models.Model):
 
 class Contenedor(models.Model):
     colaborador = models.ForeignKey (
-        User, on_delete=models.SET_NULL, 
+        User, 
+        on_delete=models.SET_NULL, 
         null = True, 
         blank = True
     )

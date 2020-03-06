@@ -7,7 +7,6 @@ Vue.use(Vuex)
 
 const getTokenVar = (accessToken,varname)=>{
   const tokenBody = accessToken.split('.')[1];
-  debugger;
   const tokenObject = JSON.parse(atob(tokenBody));
   return tokenObject[varname];
 }

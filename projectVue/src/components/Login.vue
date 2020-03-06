@@ -2,7 +2,7 @@
     <v-layout align-center justify-center>
         <v-flex xs12 sm8 md6 lg5 xl4>
             <v-card>
-                <v-toolbar dark color="blue darken-3">
+                <v-toolbar dark color="teal darken-1">
                     <v-toolbar-title>
                     Acceso al Sistema
                     </v-toolbar-title>
@@ -44,7 +44,7 @@ export default {
             .then(data =>{
                 swal({
               title: "Genial!",
-              text: "Bienvenido a SIGESCO",
+              text: "Bienvenido a SGRC",
               icon: "success"
             });                
                 this.$store.dispatch("guardarToken", data);                
