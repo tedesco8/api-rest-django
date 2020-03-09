@@ -170,8 +170,8 @@ SIMPLE_JWT = {
     #token de accesso expira en 182 dias, si dentro los 20 dias siguientes
     #no se consumen servicios, no se renovara el refreshtoken y este tambien
     #expirara. Los clientes deben implementar la logica de su uso
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=182),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=202),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     
     #Para test
     #'ACCESS_TOKEN_LIFETIME': timedelta(seconds=15),

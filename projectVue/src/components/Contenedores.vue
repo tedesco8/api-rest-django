@@ -2,7 +2,7 @@
   <v-layout align-start>
     <v-flex>
       <v-toolbar flat color="white">
-        <v-toolbar-title>Categorías</v-toolbar-title>
+        <v-toolbar-title>Contenedores</v-toolbar-title>
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <v-text-field
@@ -14,7 +14,7 @@
           hide-details
         ></v-text-field>
         <v-spacer></v-spacer>
-        <!--Modal agregar o editar categoria-->
+        <!--Modal agregar o editar Contenedores-->
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on }">
             <v-btn color="primary" dark class="mb-2" v-on="on">Nuevo</v-btn>
@@ -75,7 +75,9 @@
           </v-card>
         </v-dialog>
       </v-toolbar>
-      <v-data-table :headers="headers" :items="categorias" :search="search" class="elevation-1">
+       <!--Tabla-->
+      <v-data-table :headers="headers" :items="Contenedores" :search="search" class="elevation-1">
+        <!--Editar-->
         <template v-slot:item.opciones="{item}">
           <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
           <div v-if="item.estado">
@@ -85,6 +87,7 @@
             <v-icon small @click="activarDesactivarMostrar(1,item)">check</v-icon>
           </div>
         </template>
+        <!--Activar o desactivar-->
         <template v-slot:item.estado="{item}">
           <div v-if="item.estado">
             <span class="blue--text">Activo</span>
@@ -93,6 +96,7 @@
             <span class="red--text">Inactivo</span>
           </div>
         </template>
+        <!--Resetear-->
         <template v-slot:no-data>
           <v-btn color="primary" @click="listar()">Resetear</v-btn>
         </template>
@@ -107,17 +111,24 @@ export default {
     return {
       dialog: false,
       search: "",
-      categorias: [],
+      Contenedores: [],
       headers: [
-        { text: "Opciones", value: "opciones", sortable: false },
-        { text: "Nombre", value: "nombre", sortable: true },
+        { text: "Id", value: "id", sortable: true },
+        { text: "Colaborador", value: "colaborador", sortable: true },
         { text: "Descripción", value: "descripcion", sortable: false },
-        { text: "Estado", value: "estado", sortable: false }
+        { text: "Peso", value: "peso", sortable: true },
+        { text: "Latitud", value: "lat", sortable: false },
+        { text: "Longitud", value: "lng", sortable: false },
+        { text: "Estado", value: "estado", sortable: false },
+        { text: "Opciones", value: "opciones", sortable: false }
       ],
       editedIndex: -1,
       _id: "",
-      nombre: "",
+      colaborador: "",
       descripcion: "",
+      peso: "",
+      lat: "",
+      lng: "",
       valida: 0,
       validaMensaje: [],
       adModal: 0,
@@ -141,15 +152,21 @@ export default {
   },
   methods: {
     listar() {
+      debugger;
       let me = this;
-      let header = { Token: this.$store.state.token };
+      let token = this.$store.state.tokens;
+      let bearer = 'Bearer ';
+      let cuerpoHeader = `Bearer ${token}`;
+      let header = { Authorization: cuerpoHeader };
       let configuracion = { headers: header };
       axios
-        .get("categoria/list", configuracion)
+        .get("/api/contenedores", configuracion)
         .then(function(response) {
-          me.categorias = response.data;
+          debugger;
+          me.Contenedores = response.data;
         })
         .catch(function(error) {
+          debugger;
           console.log(error);
         });
     },
@@ -190,7 +207,7 @@ export default {
         //Código para editar
         axios
           .put(
-            "categoria/update",
+            "Contenedores/update",
             {
               _id: this._id,
               nombre: this.nombre,
@@ -215,7 +232,7 @@ export default {
         //Código para guardar
         axios
           .post(
-            "categoria/add",
+            "Contenedores/add",
             { nombre: this.nombre, descripcion: this.descripcion },
             configuracion
           )
@@ -261,7 +278,7 @@ export default {
       let header = { Token: this.$store.state.token };
       let configuracion = { headers: header };
       axios
-        .put("categoria/activate", { _id: this.adId }, configuracion)
+        .put("Contenedores/activate", { _id: this.adId }, configuracion)
         .then(function(response) {
           swal({
               title: "Buen trabajo!",
@@ -283,7 +300,7 @@ export default {
       let header = { Token: this.$store.state.token };
       let configuracion = { headers: header };
       axios
-        .put("categoria/deactivate", { _id: this.adId }, configuracion)
+        .put("Contenedores/deactivate", { _id: this.adId }, configuracion)
         .then(function(response) {
           swal({
               title: "Buen trabajo!",

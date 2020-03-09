@@ -94,6 +94,7 @@
         </v-dialog>
       </v-toolbar>
       <v-data-table :headers="headers" :items="usuarios" :search="search" class="elevation-1">
+        <!--Editar-->
         <template v-slot:item.opciones="{item}">
           <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
           <div v-if="item.estado">
@@ -103,6 +104,7 @@
             <v-icon small @click="activarDesactivarMostrar(1,item)">check</v-icon>
           </div>
         </template>
+        <!--Estado-->
         <template v-slot:item.estado="{item}">
           <div v-if="item.estado">
             <span class="blue--text">Activo</span>
@@ -111,6 +113,7 @@
             <span class="red--text">Inactivo</span>
           </div>
         </template>
+        <!--Resetear-->
         <template v-slot:no-data>
           <v-btn color="primary" @click="listar()">Resetear</v-btn>
         </template>
@@ -127,24 +130,24 @@ export default {
       search: "",
       usuarios: [],
       headers: [
-        { text: "Opciones", value: "opciones", sortable: false },
-        { text: "Nombre", value: "nombre", sortable: true },
+        { text: "Id", value: "_id", sortable: true },
         { text: "Rol", value: "rol", sortable: true },
-        { text: "Tipo Documento", value: "tipo_documento", sortable: true },
-        { text: "Número Documento", value: "num_documento", sortable: false },
+        { text: "Nombre Usuario", value: "nombre_usuario", sortable: true },
+        { text: "Nombre", value: "nombre", sortable: false },
+        { text: "Apellido", value: "apellido", sortable: false },
         { text: "Dirección", value: "direccion", sortable: false },
         { text: "Teléfono", value: "telefono", sortable: false },
         { text: "Email", value: "email", sortable: false },
-        { text: "Estado", value: "estado", sortable: false }
+        { text: "Estado", value: "estado", sortable: false },
+        { text: "Opciones", value: "opciones", sortable: false }
       ],
       editedIndex: -1,
       _id: "",
-      nombre: "",
       rol: "",
-      roles: ["Administrador", "Almacenero", "Vendedor"],
-      tipo_documento: "",
-      documentos: ["DNI", "RUC", "PASAPORTE", "CEDULA"],
-      num_documento: "",
+      roles: ["Admin", "SuperAdmin", "Colaborador"],
+      nombre_usuario: "",
+      nombre: "",
+      apellido: "",
       direccion: "",
       telefono: "",
       email: "",
@@ -176,7 +179,7 @@ export default {
       let header = { Token: this.$store.state.token };
       let configuracion = { headers: header };
       axios
-        .get("usuario/list", configuracion)
+        .get("/api/users", configuracion)
         .then(function(response) {
           me.usuarios = response.data;
         })

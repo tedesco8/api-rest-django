@@ -5,7 +5,7 @@ import router from './router'
 
 Vue.use(Vuex)
 
-const getTokenVar = (accessToken,varname)=>{
+const getTokenVar = (accessToken,varname) => {
   const tokenBody = accessToken.split('.')[1];
   const tokenObject = JSON.parse(atob(tokenBody));
   return tokenObject[varname];
@@ -26,6 +26,7 @@ export default new Vuex.Store({
   },
   actions: {
     guardarToken({commit}, tokens){
+      debugger;
       commit("setTokens", tokens);
       const user = getTokenVar(tokens.access,'user_id');
       commit("setUsuario",{id:user});
