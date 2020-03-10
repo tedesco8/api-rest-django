@@ -15,8 +15,8 @@ urlpatterns = [
     #path('api/contenedores/', include(contenedores_router.urls,namespace='contenedores')),
     #path('api/usuarios/', include(usuarios_router.urls,namespace='usuarios'))
 
-    path('api/', include((contenedores_router.urls,'contenedores'))),
-    path('api/', include((usuarios_router.urls,'usuarios')))
+    path('api/contenedores/', include((contenedores_router.urls,'contenedores'))),
+    path('api/usuarios/', include((usuarios_router.urls,'usuarios')))
 ]
 
 #urlpatterns += router.urls

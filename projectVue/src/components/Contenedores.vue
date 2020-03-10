@@ -54,7 +54,7 @@
               Estás a punto de
               <span v-if="adAccion==1">activar</span>
               <span v-if="adAccion==2">desactivar</span>
-              el item {{adNombre}}
+              el item {{selectedItem?selectedItem.nombre:""}}
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -76,11 +76,11 @@
         </v-dialog>
       </v-toolbar>
        <!--Tabla-->
-      <v-data-table :headers="headers" :items="Contenedores" :search="search" class="elevation-1">
+      <v-data-table :headers="headers" :items="contenedores" :search="search" class="elevation-1">
         <!--Editar-->
         <template v-slot:item.opciones="{item}">
           <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
-          <div v-if="item.estado">
+          <div v-if="item.activo">
             <v-icon small @click="activarDesactivarMostrar(2,item)">block</v-icon>
           </div>
           <div v-else>
@@ -89,7 +89,7 @@
         </template>
         <!--Activar o desactivar-->
         <template v-slot:item.estado="{item}">
-          <div v-if="item.estado">
+          <div v-if="item.activo">
             <span class="blue--text">Activo</span>
           </div>
           <div v-else>
@@ -111,15 +111,15 @@ export default {
     return {
       dialog: false,
       search: "",
-      Contenedores: [],
+      contenedores: [],
       headers: [
         { text: "Id", value: "id", sortable: true },
         { text: "Colaborador", value: "colaborador", sortable: true },
         { text: "Descripción", value: "descripcion", sortable: false },
-        { text: "Peso", value: "peso", sortable: true },
+        { text: "Peso", value: "weight", sortable: true },
         { text: "Latitud", value: "lat", sortable: false },
         { text: "Longitud", value: "lng", sortable: false },
-        { text: "Estado", value: "estado", sortable: false },
+        { text: "Estado", value: "activo", sortable: false },
         { text: "Opciones", value: "opciones", sortable: false }
       ],
       editedIndex: -1,
@@ -151,24 +151,22 @@ export default {
     this.listar();
   },
   methods: {
-    listar() {
-      debugger;
+    listar(){      
       let me = this;
       let token = this.$store.state.tokens;
-      let bearer = 'Bearer ';
-      let cuerpoHeader = `Bearer ${token}`;
+      const access = token.access;
+      let cuerpoHeader = `Bearer ${access}`;
       let header = { Authorization: cuerpoHeader };
-      let configuracion = { headers: header };
+      let configuracion = { headers: header };      
       axios
-        .get("/api/contenedores", configuracion)
-        .then(function(response) {
-          debugger;
-          me.Contenedores = response.data;
-        })
-        .catch(function(error) {
-          debugger;
-          console.log(error);
-        });
+      .get("/api/contenedores/contenedores/", configuracion)
+      .then(function(response) {        
+        me.contenedores = response.data.results;        
+      })
+      .catch(function(error) {
+        alert(error.toString());
+        console.log(error);
+      });      
     },
     limpiar() {
       this._id = "";
@@ -207,7 +205,7 @@ export default {
         //Código para editar
         axios
           .put(
-            "Contenedores/update",
+            "/api/contenedores/contenedores/update",
             {
               _id: this._id,
               nombre: this.nombre,
@@ -232,7 +230,7 @@ export default {
         //Código para guardar
         axios
           .post(
-            "Contenedores/add",
+            "/api/contenedores/contenedores/add",
             { nombre: this.nombre, descripcion: this.descripcion },
             configuracion
           )
@@ -259,9 +257,8 @@ export default {
       this.editedIndex = 1;
     },
     activarDesactivarMostrar(accion, item) {
-      this.adModal = 1;
-      this.adNombre = item.nombre;
-      this.adId = item._id;
+      this.adModal = 1;            
+      this.selectedItem = item;
       if (accion == 1) {
         this.adAccion = 1;
       } else if (accion == 2) {
@@ -274,12 +271,13 @@ export default {
       this.adModal = 0;
     },
     activar() {
-      let me = this;
-      let header = { Token: this.$store.state.token };
+      let me = this;      
+      let header = { Authorization: `Bearer ${this.$store.state.tokens.access}` };
       let configuracion = { headers: header };
       axios
-        .put("Contenedores/activate", { _id: this.adId }, configuracion)
+        .put(`/api/contenedores/contenedores/${this.selectedItem.id}/activate/`,{},configuracion)
         .then(function(response) {
+          const item = response.data;
           swal({
               title: "Buen trabajo!",
               text: "Categoría activada exitosamente",
@@ -287,8 +285,7 @@ export default {
             });
           me.adModal = 0;
           me.adAccion = 0;
-          me.adNombre = "";
-          me.adId = "";
+          me.selectedItem = item;
           me.listar();
         })
         .catch(function(error) {
@@ -296,12 +293,13 @@ export default {
         });
     },
     desactivar() {
-      let me = this;
-      let header = { Token: this.$store.state.token };
+      let me = this;      
+      let header = { Authorization: `Bearer ${this.$store.state.tokens.access}` };
       let configuracion = { headers: header };
       axios
-        .put("Contenedores/deactivate", { _id: this.adId }, configuracion)
+        .put(`/api/contenedores/contenedores/${this.selectedItem.id}/deactivate/`,{},configuracion)
         .then(function(response) {
+          const item = response.data;
           swal({
               title: "Buen trabajo!",
               text: "Categoría desactivada exitosamente",
@@ -309,8 +307,7 @@ export default {
             });
           me.adModal = 0;
           me.adAccion = 0;
-          me.adNombre = "";
-          me.adId = "";
+          me.selectedItem = item;
           me.listar();
         })
         .catch(function(error) {
