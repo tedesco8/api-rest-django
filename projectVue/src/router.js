@@ -20,9 +20,7 @@ var router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        administrador: true,
-        almacenero: true,
-        vendedor: true
+        libre: true
       }
     },
     {
