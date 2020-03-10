@@ -1,7 +1,7 @@
 <template>
   <v-layout align-start>
     <v-flex>
-      <v-toolbar flat color="white">
+      <v-toolbar text color="white">
         <v-toolbar-title>Contenedores</v-toolbar-title>
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
@@ -26,11 +26,20 @@
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
-                  <v-flex xs12 sm12 md12>
-                    <v-text-field v-model="nombre" label="Nombre"></v-text-field>
+                  <v-flex xs12 sm6 md6>
+                    <v-select v-model="colaborador" :items="colaboradores" label="Colaborador"></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field v-model="peso" label="Peso"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm12 md12>
                     <v-text-field v-model="descripcion" label="Descripción"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field v-model="lat" label="Latitud"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field v-model="lng" label="Longitud"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm12 md12 v-show="valida">
                     <div class="red--text" v-for="v in validaMensaje" :key="v" v-text="v"></div>
@@ -40,8 +49,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click="close">Cancelar</v-btn>
-              <v-btn color="blue darken-1" flat @click="guardar">Guardar</v-btn>
+              <v-btn color="blue darken-1" text @click="close">Cancelar</v-btn>
+              <v-btn color="blue darken-1" text @click="guardar">Guardar</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -54,22 +63,22 @@
               Estás a punto de
               <span v-if="adAccion==1">activar</span>
               <span v-if="adAccion==2">desactivar</span>
-              el item {{selectedItem?selectedItem.nombre:""}}
+              el contenedor {{selectedItem?selectedItem.nombre:""}}
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn @click="activarDesactivarCerrar()" color="green darken-1" flat="flat">Cancelar</v-btn>
+              <v-btn @click="activarDesactivarCerrar()" color="green darken-1" text="text">Cancelar</v-btn>
               <v-btn
                 v-if="adAccion==1"
                 @click="activar()"
                 color="orange darken-4"
-                flat="flat"
+                text="text"
               >Activar</v-btn>
               <v-btn
                 v-if="adAccion==2"
                 @click="desactivar()"
                 color="orange darken-4"
-                flat="flat"
+                text="text"
               >Desactivar</v-btn>
             </v-card-actions>
           </v-card>
@@ -80,6 +89,7 @@
         <!--Editar-->
         <template v-slot:item.opciones="{item}">
           <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
+          <!--Activar/Desactivarr-->
           <div v-if="item.activo">
             <v-icon small @click="activarDesactivarMostrar(2,item)">block</v-icon>
           </div>
@@ -88,7 +98,7 @@
           </div>
         </template>
         <!--Activar o desactivar-->
-        <template v-slot:item.estado="{item}">
+        <template v-slot:item.activo="{item}">
           <div v-if="item.activo">
             <span class="blue--text">Activo</span>
           </div>
@@ -125,6 +135,7 @@ export default {
       editedIndex: -1,
       _id: "",
       colaborador: "",
+      colaboradores: [],
       descripcion: "",
       peso: "",
       lat: "",
@@ -133,6 +144,7 @@ export default {
       validaMensaje: [],
       adModal: 0,
       adAccion: 0,
+      selectedItem: "",
       adNombre: "",
       adId: ""
     };
@@ -148,7 +160,7 @@ export default {
     }
   },
   created() {
-    this.listar();
+    this.listar(), this.selectColaboradores();
   },
   methods: {
     listar(){      
@@ -168,10 +180,34 @@ export default {
         console.log(error);
       });      
     },
+    selectColaboradores() {
+      let me = this;
+      let colaboradoresArray = [];
+      let token = this.$store.state.tokens;
+      const access = token.access;
+      let cuerpoHeader = `Bearer ${access}`;
+      let header = { Authorization: cuerpoHeader };
+      let configuracion = { headers: header };
+      debugger;
+      axios
+        .get("/api/usuarios/users/", configuracion)
+        .then(function(response) {
+          colaboradoresArray = response.data.results;
+          colaboradoresArray.map(function(x) {
+            me.colaboradores.push({ text: x.username, value: x._id });
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
     limpiar() {
       this._id = "";
-      this.nombre = "";
+      this.colaborador = "";
       this.descripcion = "";
+      this.peso = "";
+      this.lat = "";
+      this.lng= "";
       this.valida = 0;
       this.validaMensaje = [];
       this.editedIndex = -1;
@@ -179,14 +215,14 @@ export default {
     validar() {
       this.valida = 0;
       this.validaMensaje = [];
-      if (this.nombre.length < 1 || this.nombre.length > 50) {
-        this.validaMensaje.push(
-          "El nombre de la categoría debe tener entre 1-50 caracteres."
-        );
-      }
       if (this.descripcion.length > 255) {
         this.validaMensaje.push(
-          "La descripción de la categoría no debe tener más de 255 caracteres."
+          "La descripción del Contenedor no debe tener más de 100 caracteres."
+        );
+      }
+      if (this.peso.length > 255) {
+        this.validaMensaje.push(
+          "El peso del contenedor es obligatorio, su unidad de medida es en kg"
         );
       }
       if (this.validaMensaje.length) {
@@ -196,7 +232,10 @@ export default {
     },
     guardar() {
       let me = this;
-      let header = { Token: this.$store.state.token };
+      let token = this.$store.state.tokens;
+      const access = token.access;
+      let cuerpoHeader = `Bearer ${access}`;
+      let header = { Authorization: cuerpoHeader };
       let configuracion = { headers: header };
       if (this.validar()) {
         return;
@@ -205,18 +244,21 @@ export default {
         //Código para editar
         axios
           .put(
-            "/api/contenedores/contenedores/update",
+            "/api/contenedores/contenedores/",
             {
               _id: this._id,
-              nombre: this.nombre,
-              descripcion: this.descripcion
+              colaborador: this.colaborador,
+              descripcion: this.descripcion,
+              weight: this.peso,
+              lat: this.lat,
+              lng: this.lng
             },
             configuracion
           )
           .then(function(response) {
             swal({
               title: "Buen trabajo!",
-              text: "Categoría editada exitosamente",
+              text: "Contenedor editado exitosamente",
               icon: "success"
             });
             me.limpiar();
@@ -230,14 +272,20 @@ export default {
         //Código para guardar
         axios
           .post(
-            "/api/contenedores/contenedores/add",
-            { nombre: this.nombre, descripcion: this.descripcion },
+            "/api/contenedores/contenedores/",
+            { 
+              colaborador: this.colaborador,
+              descripcion: this.descripcion,
+              weight: this.peso,
+              lat: this.lat,
+              lng: this.lng
+            },
             configuracion
           )
           .then(function(response) {
             swal({
               title: "Buen trabajo!",
-              text: "Categoría agregada exitosamente",
+              text: "Contenedor agregado exitosamente",
               icon: "success"
             });
             me.limpiar();
@@ -251,8 +299,11 @@ export default {
     },
     editItem(item) {
       this._id = item._id;
-      this.nombre = item.nombre;
+      this.colaborador = item.colaborador;
       this.descripcion = item.descripcion;
+      this.peso = item.peso;
+      this.lat = item.lat;
+      this.lng = item.ln;
       this.dialog = true;
       this.editedIndex = 1;
     },
@@ -280,7 +331,7 @@ export default {
           const item = response.data;
           swal({
               title: "Buen trabajo!",
-              text: "Categoría activada exitosamente",
+              text: "Contenedor activado exitosamente",
               icon: "success"
             });
           me.adModal = 0;
@@ -302,7 +353,7 @@ export default {
           const item = response.data;
           swal({
               title: "Buen trabajo!",
-              text: "Categoría desactivada exitosamente",
+              text: "Contenedor desactivado exitosamente",
               icon: "success"
             });
           me.adModal = 0;

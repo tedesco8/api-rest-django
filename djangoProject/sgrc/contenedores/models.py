@@ -36,7 +36,7 @@ class Contenedor(models.Model):
     )
     
     activo = models.BooleanField (
-        default = False
+        default = True
     )
 
     created = models.DateTimeField (
@@ -52,8 +52,7 @@ class Contenedor(models.Model):
 
     weight = models.FloatField (
         default = 0,
-        null = True,
-        blank=True
+        help_text = 'Peso del Contenedor'
     )
 
     lat = models.FloatField (
