@@ -188,13 +188,12 @@ export default {
       let cuerpoHeader = `Bearer ${access}`;
       let header = { Authorization: cuerpoHeader };
       let configuracion = { headers: header };
-      debugger;
       axios
         .get("/api/usuarios/users/", configuracion)
         .then(function(response) {
           colaboradoresArray = response.data.results;
           colaboradoresArray.forEach(function(x) {
-            me.colaboradores.push({ text: x.username, value: x._id });
+            me.colaboradores.push({ text: x.username, value: x.id });
           });
         })
         .catch(function(error) {
@@ -246,7 +245,7 @@ export default {
           .put(
             "/api/contenedores/contenedores/",
             {
-              _id: this._id,
+              id: this._id,
               colaborador: this.colaborador,
               descripcion: this.descripcion,
               weight: this.peso,
