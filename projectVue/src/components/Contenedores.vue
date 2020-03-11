@@ -297,12 +297,12 @@ export default {
       }
     },
     editItem(item) {
-      this._id = item._id;
+      this._id = item.id;
       this.colaborador = item.colaborador;
       this.descripcion = item.descripcion;
-      this.peso = item.peso;
+      this.peso = item.weight;
       this.lat = item.lat;
-      this.lng = item.ln;
+      this.lng = item.lng;
       this.dialog = true;
       this.editedIndex = 1;
     },
