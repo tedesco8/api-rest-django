@@ -193,7 +193,7 @@ export default {
         .get("/api/usuarios/users/", configuracion)
         .then(function(response) {
           colaboradoresArray = response.data.results;
-          colaboradoresArray.map(function(x) {
+          colaboradoresArray.forEach(function(x) {
             me.colaboradores.push({ text: x.username, value: x._id });
           });
         })
