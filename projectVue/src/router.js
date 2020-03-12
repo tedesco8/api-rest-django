@@ -2,10 +2,16 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
 import Home from './views/Home.vue'
-import Contenedores from './components/Contenedores.vue'
+
 import Login from './components/Login.vue'
-import Usuario from './components/Usuario.vue'
+
+import Contenedores from './components/Contenedores.vue'
 import Articulo from './components/Articulo.vue'
+
+import Administradores from './components/Administradores.vue'
+import Colaboradores from './components/Colaboradores.vue'
+import Usuarios from './components/Usuarios.vue'
+
 import ReporteVentas from './components/ReporteVentas.vue'
 import ReporteIngresos from './components/ReporteIngresos.vue'
 
@@ -48,9 +54,25 @@ var router = new Router({
       }
     },
     {
-      path: '/usuario',
-      name: 'usuario',
-      component: Usuario,
+      path: '/administradores',
+      name: 'administradores',
+      component: Administradores,
+      meta: {
+        libre: true
+      }
+    },
+    {
+      path: '/colaboradores',
+      name: 'colaboradores',
+      component: Colaboradores,
+      meta: {
+        libre: true
+      }
+    },
+    {
+      path: '/usuarios',
+      name: 'usuarios',
+      component: Usuarios,
       meta: {
         libre: true
       }

@@ -130,8 +130,8 @@ export default {
       search: "",
       usuarios: [],
       headers: [
-        { text: "Id", value: "_id", sortable: true },
-        { text: "Rol", value: "rol", sortable: true },
+        { text: "Id", value: "id", sortable: true },
+        { text: "Username", value: "username", sortable: true },
         { text: "Nombre Usuario", value: "nombre_usuario", sortable: true },
         { text: "Nombre", value: "nombre", sortable: false },
         { text: "Apellido", value: "apellido", sortable: false },
@@ -175,13 +175,16 @@ export default {
   },
   methods: {
     listar() {
-      let me = this;
-      let header = { Token: this.$store.state.token };
-      let configuracion = { headers: header };
+     let me = this;
+      let token = this.$store.state.tokens;
+      const access = token.access;
+      let cuerpoHeader = `Bearer ${access}`;
+      let header = { Authorization: cuerpoHeader };
+      let configuracion = { headers: header }; 
       axios
-        .get("/api/users", configuracion)
+        .get("/api/usuarios/users", configuracion)
         .then(function(response) {
-          me.usuarios = response.data;
+          me.usuarios = response.data.results;
         })
         .catch(function(error) {
           console.log(error);

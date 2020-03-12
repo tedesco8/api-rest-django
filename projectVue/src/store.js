@@ -32,7 +32,6 @@ export default new Vuex.Store({
       commit("setUsuario",{id:user});
       localStorage.setItem("access_token", tokens.access)
       localStorage.setItem("refresh_token", tokens.refresh);
-      debugger;
     },
     autoLogin({commit}){
       let token = localStorage.getItem("token");

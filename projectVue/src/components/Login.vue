@@ -47,8 +47,7 @@ export default {
               text: "Bienvenido a SGRC",
               icon: "success"
             });                
-                this.$store.dispatch("guardarToken", data);
-                debugger;                
+                this.$store.dispatch("guardarToken", data);          
                 this.$router.push({name: 'home'});
             })
             .catch(error =>{
