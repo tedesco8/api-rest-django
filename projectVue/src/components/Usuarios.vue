@@ -27,29 +27,38 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md6>
-                    <v-text-field v-model="nombre" label="Nombre"></v-text-field>
+                    <v-text-field v-model="user.username" label="Username"></v-text-field>
                   </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field v-model="user.email" label="Email"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm12 md12>
+                    <v-text-field type="password" v-model="password" label="Password"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm12 md12>
+                    <v-text-field type="password" v-model="password_repeat" label="Repetir password"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field v-model="user.first_name" label="Nombre"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field v-model="user.last_name" label="Apellido"></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs12 sm4 md4>
+                    <v-checkbox v-model="user.is_active" label="Es activo"></v-checkbox>
+                  </v-flex>
+                  <v-flex xs12 sm4 md4>
+                    <v-checkbox v-model="user.is_staff" label="Es staff"></v-checkbox>
+                  </v-flex>
+                  <v-flex xs12 sm4 md4>
+                    <v-checkbox v-model="user.is_superuser" label="Es admin"></v-checkbox>
+                  </v-flex>
+
                   <v-flex xs12 sm6 md6>
                     <v-select v-model="rol" :items="roles" label="Rol"></v-select>
                   </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-select v-model="tipo_documento" :items="documentos" label="Tipo Documento"></v-select>
-                  </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field v-model="num_documento" label="Número Documento"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field v-model="direccion" label="Dirección"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field v-model="telefono" label="Teléfono"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field v-model="email" label="Email"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md6>
-                    <v-text-field type="password" v-model="password" label="Password"></v-text-field>
-                  </v-flex>
+
                   <v-flex xs12 sm12 md12 v-show="valida">
                     <div class="red--text" v-for="v in validaMensaje" :key="v" v-text="v"></div>
                   </v-flex>
@@ -144,25 +153,37 @@ export default {
       editedIndex: -1,
       _id: "",
       rol: "",
-      roles: ["Admin", "SuperAdmin", "Colaborador"],
+      roles: [{text:"Usuario",value:2},{text:"Colaborador",value:1}],
       nombre_usuario: "",
       nombre: "",
       apellido: "",
       direccion: "",
       telefono: "",
       email: "",
-      password: "",
       valida: 0,
       validaMensaje: [],
       adModal: 0,
       adAccion: 0,
       adNombre: "",
-      adId: ""
+      adId: "",
+      password: "",
+      password_repeat:"",
+      user:{
+        id:null,
+        first_name:null,
+        last_name:null,
+        email:null,        
+        username:null,
+        is_staff:false,
+        is_active:false,
+        is_superuser:false,
+        groups:[],
+      },
     };
   },
   computed: {
     formTitle() {
-      return this.editedIndex === -1 ? "Nuevo registro" : "Editar registro";
+      return this.editedIndex === -1 ? "Nuevo registro" : "Editar registro";      
     }
   },
   watch: {
@@ -201,10 +222,22 @@ export default {
       this.valida = 0;
       this.validaMensaje = [];
       this.editedIndex = -1;
+      this.user={
+          id:null,
+        first_name:null,
+        last_name:null,
+        email:null,        
+        username:null,
+        is_staff:false,
+        is_active:false,
+        is_superuser:false,
+        groups:[],      
+      }
     },
     validar() {
-      this.valida = 0;
+      this.valida = 0;      
       this.validaMensaje = [];
+      return 0;
       if (!this.rol) {
         this.validaMensaje.push("Seleccione un rol.");
       }
@@ -245,7 +278,10 @@ export default {
     },
     guardar() {
       let me = this;
-      let header = { Token: this.$store.state.token };
+      let token = this.$store.state.tokens;
+      const access = token.access;
+      let cuerpoHeader = `Bearer ${access}`;
+      let header = { Authorization: cuerpoHeader };
       let configuracion = { headers: header };
       if (this.validar()) {
         return;
@@ -254,18 +290,8 @@ export default {
         //Código para editar
         axios
           .put(
-            "usuario/update",
-            {
-              _id: this._id,
-              rol: this.rol,
-              nombre: this.nombre,
-              tipo_documento: this.tipo_documento,
-              num_documento: this.num_documento,
-              direccion: this.direccion,
-              telefono: this.telefono,
-              email: this.email,
-              password: this.password
-            },
+            `api/usuarios/users/${this.user.id}/`,
+            this.user,
             configuracion
           )
           .then(function(response) {
@@ -283,19 +309,12 @@ export default {
           });
       } else {
         //Código para guardar
+        this.user.password=this.password;
+        this.user.groups=[1];
         axios
           .post(
-            "usuario/add",
-            {
-              rol: this.rol,
-              nombre: this.nombre,
-              tipo_documento: this.tipo_documento,
-              num_documento: this.num_documento,
-              direccion: this.direccion,
-              telefono: this.telefono,
-              email: this.email,
-              password: this.password
-            },
+            `api/usuarios/users/`,
+            this.user,
             configuracion
           )
           .then(function(response) {
@@ -314,15 +333,7 @@ export default {
       }
     },
     editItem(item) {
-      this._id = item._id;
-      this.rol = item.rol;
-      this.nombre = item.nombre;
-      this.tipo_documento = item.tipo_documento;
-      this.num_documento = item.num_documento;
-      this.direccion = item.direccion;
-      this.telefono = item.telefono || '';
-      this.email = item.email;
-      this.password = item.password;
+      this.user=item;
       this.dialog = true;
       this.editedIndex = 1;
     },
@@ -387,6 +398,7 @@ export default {
     },
     close() {
       this.dialog = false;
+      this.limpiar();
     }
   }
 };

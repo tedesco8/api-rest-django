@@ -62,26 +62,6 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item :to="{name: 'administradores'}">
-              <v-list-item-action>
-                <v-icon>table_chart</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Administradores
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item :to="{name: 'colaboradores'}">
-              <v-list-item-action>
-                <v-icon>table_chart</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Colaboradores
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
             <v-list-item :to="{name: 'usuarios'}">
               <v-list-item-action>
                 <v-icon>table_chart</v-icon>

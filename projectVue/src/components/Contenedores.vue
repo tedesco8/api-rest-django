@@ -189,12 +189,13 @@ export default {
       let header = { Authorization: cuerpoHeader };
       let configuracion = { headers: header };
       axios
-        .get("/api/usuarios/users/", configuracion)
+        .get("/api/usuarios/users/?no_paginate=1&roles=colaborador", configuracion)
         .then(function(response) {
-          colaboradoresArray = response.data.results;
-          colaboradoresArray.forEach(function(x) {
+          colaboradoresArray = response.data;
+          /*colaboradoresArray.forEach(function(x) {
             me.colaboradores.push({ text: x.username, value: x.id });
-          });
+          });*/
+          me.colaboradores=colaboradoresArray.map(c=>{return {text:c.username,value:c.id}});
         })
         .catch(function(error) {
           console.log(error);
@@ -243,7 +244,7 @@ export default {
         //Código para editar
         axios
           .put(
-            "/api/contenedores/contenedores/",
+            `/api/contenedores/contenedores/${this._id}/`,
             {
               id: this._id,
               colaborador: this.colaborador,

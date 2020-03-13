@@ -8,8 +8,6 @@ import Login from './components/Login.vue'
 import Contenedores from './components/Contenedores.vue'
 import Articulo from './components/Articulo.vue'
 
-import Administradores from './components/Administradores.vue'
-import Colaboradores from './components/Colaboradores.vue'
 import Usuarios from './components/Usuarios.vue'
 
 import ReporteVentas from './components/ReporteVentas.vue'
@@ -49,22 +47,6 @@ var router = new Router({
       path: '/articulo',
       name: 'articulo',
       component: Articulo,
-      meta: {
-        libre: true
-      }
-    },
-    {
-      path: '/administradores',
-      name: 'administradores',
-      component: Administradores,
-      meta: {
-        libre: true
-      }
-    },
-    {
-      path: '/colaboradores',
-      name: 'colaboradores',
-      component: Colaboradores,
       meta: {
         libre: true
       }
