@@ -27,7 +27,7 @@ class ContenedorViewSet(viewsets.ModelViewSet):
     '''
 
     @action(detail=True,methods=['PUT',])
-    def activate(self,request,pk=None):
+    def activate(self,request,pk = None):
         try:
             contenedor = Contenedor.objects.get(id=pk)
             contenedor.activo = True
@@ -42,8 +42,8 @@ class ContenedorViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
 
-    @action(detail=True,methods=['PUT',])
-    def deactivate(self,request,pk=None):
+    @action(detail = True, methods = ['PUT',])
+    def deactivate(self, request, pk = None):
         try:
             contenedor = Contenedor.objects.get(id=pk)
             contenedor.activo = False
@@ -55,5 +55,5 @@ class ContenedorViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return Response(
                 str(e),
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                status = status.HTTP_500_INTERNAL_SERVER_ERROR
                 )

@@ -241,7 +241,7 @@ export default {
         return;
       }
       if (this.editedIndex > -1) {
-        //Código para editar
+        //PUT
         axios
           .put(
             `/api/contenedores/contenedores/${this._id}/`,
@@ -269,7 +269,7 @@ export default {
             console.log(error);
           });
       } else {
-        //Código para guardar
+        //POST
         axios
           .post(
             "/api/contenedores/contenedores/",

@@ -72,6 +72,7 @@ class Profile(models.Model):
         City,
         null = True,
         blank = True,
+        default = None,
         on_delete = models.SET_NULL
     )
 
