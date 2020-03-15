@@ -1,141 +1,103 @@
 <template>
-  <v-container grid-list-m>
-    <v-layout wrap>
-      <v-flex xs12 sm12 md12>
-        <div class="ct-chart">
-          <canvas id="myChart">                                                
-          </canvas>
-        </div>
+  <v-container>
+    <v-layout
+      text-center
+      wrap
+    >
+      <v-flex xs12>
+        <v-img
+          :src="require('../assets/SGRC.png')"
+          class="my-3"
+          contain
+          height="200"
+        ></v-img>
       </v-flex>
+
+      <v-flex mb-4>
+        <h1 class="display-2 font-weight-bold mb-3">
+          Bienvenido a SGRC
+        </h1>
+        <h3>
+          Sistema de Gestión de Recolección de Colillas
+        </h3><br>
+        <p class="subheading font-weight-regular">
+          Este es un sistema pensado y desarrollado por el grupo OutboxDev para el emprendimiento Ecológista
+           <a href="https://www.instagram.com/nomascolillas_uy/?hl=es-la" target="_blank">No más Colillas Uruguay</a> 
+          <br>en el marco del proyecto final de primer año en Programa b_IT - CUTI / INEFOP.
+          <br>Por más información puede visitar el sitio web de
+          <a href="https://www.cuti.org.uy/public/common/b-it/" target="_blank">Programa b_IT</a>
+        </p>
+      </v-flex>
+
+      <v-flex
+        mb-5
+        xs12
+      >
+        <h2 class="headline font-weight-bold mb-3">¿Quiénes somos?</h2>
+
+        <p>Somos un grupo de estudiantes abocados a diferentes especialidades, el complemento ideal para formar el mejor equipo y brindar las mejores soluciones.
+          <br>Ponte en contacto con <a href="http://outboxdev.net/" target="_blank">OutboxDev</a>
+          </p>
+      </v-flex>
+
+      
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import axios from 'axios'
-import Chart from 'chart.js'
 export default {
-  data(){
-    return {
-      valores:[],
-      meses:[],
-      totales:[]
-    }
-  },
-  methods:{
-    listar(){
-      let me=this;
-      let header={"Token" : this.$store.state.token};
-      let configuracion= {headers : header};            
-      axios.get('venta/grafico12meses',configuracion).then(function (response){
-          me.valores=response.data;
-          me.graficar();
-      }).catch(function(error){
-          console.log(error);
-      });
-    },
-    graficar(){
-      let me=this;
-      let mesn='';
-      me.valores.map(function(x){
-        switch(parseInt(x._id.mes)){
-          case 1:
-            mesn='Enero';
-            break;
-          case 2:
-            mesn='Febrero';
-            break;
-          case 3:
-            mesn='Marzo';
-            break;
-          case 4:
-            mesn='Abril';
-            break;
-          case 5:
-            mesn='Mayo';
-            break;
-          case 6:
-            mesn='Junio';
-            break;
-          case 7:
-            mesn='Julio';
-            break;
-          case 8:
-            mesn='Agosto';
-            break;
-          case 9:
-            mesn='Setiembre';
-            break;
-          case 10:
-            mesn='Octubre';
-            break;
-          case 11:
-            mesn='Noviembre';
-            break;
-          case 12:
-            mesn='Diciembre';
-            break;
-          default:
-            mesn='error'
-        }
-               
-        me.meses.push(mesn+'-'+x._id.year);
-        me.totales.push(x.total);
-      });
-      var ctx = document.getElementById('myChart');
-      var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: me.meses,
-              datasets: [{
-                  label: 'Ventas de los últimos 12 meses',
-                  data: me.totales,
-                  backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)',
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)'
-                  ],
-                  borderColor: [
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)',
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)'
-                  ],
-                  borderWidth: 1
-              }]
-          },
-          options: {
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero: true
-                      }
-                  }]
-              }
-          }
-      });
-    }
-
-  },
-  mounted(){
-    this.listar();
-  }
-}
+  data: () => ({
+    ecosystem: [
+      {
+        text: 'vuetify-loader',
+        href: 'https://github.com/vuetifyjs/vuetify-loader',
+      },
+      {
+        text: 'github',
+        href: 'https://github.com/vuetifyjs/vuetify',
+      },
+      {
+        text: 'awesome-vuetify',
+        href: 'https://github.com/vuetifyjs/awesome-vuetify',
+      },
+    ],
+    importantLinks: [
+      {
+        text: 'Documentation',
+        href: 'https://vuetifyjs.com',
+      },
+      {
+        text: 'Chat',
+        href: 'https://community.vuetifyjs.com',
+      },
+      {
+        text: 'Made with Vuetify',
+        href: 'https://madewithvuejs.com/vuetify',
+      },
+      {
+        text: 'Twitter',
+        href: 'https://twitter.com/vuetifyjs',
+      },
+      {
+        text: 'Articles',
+        href: 'https://medium.com/vuetify',
+      },
+    ],
+    whatsNext: [
+      {
+        text: 'Explore components',
+        href: 'https://vuetifyjs.com/components/api-explorer',
+      },
+      {
+        text: 'Select a layout',
+        href: 'https://vuetifyjs.com/layout/pre-defined',
+      },
+      {
+        text: 'Frequently Asked Questions',
+        href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
+      },
+    ],
+  }),
+};
 </script>

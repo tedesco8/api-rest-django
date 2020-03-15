@@ -1,56 +1,92 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-# from cride.core.validators import RegexValidator
+from django.contrib.auth.models import User
 
-from .utils.models import CRideModel
+#from ..utils.models import CRideModel
 
 
-class User(CRideModel, AbstractUser):
-    #establecemos el correo eléctronico como campo unico
-    email = models.EmailField(
-        'email addres',
-        unique = True,
-        error_messages = {
-            'unique': 'Ya exíste un usuario con este email'
-        }
+class City(models.Model):
+    name = models.CharField (
+        max_length = 500,
+        blank = True,
+        null = True
+    )
+    description = models.CharField (
+        max_length = 500,
+        blank = True,
+        null = True
+    )    
+    lat = models.FloatField (
+        default = 0,
+        blank = True,
+        null = True
+    )
+    lng = models.FloatField (
+        default = 0,
+        blank = True,
+        null = True
     )
 
-    #numero de telefono
-    # phone_regex = RegexValidator (
-    #     regex = r'\+?1?\d{9,15}$',
-    #     message = "El numero de telefono debe contener entre 9 y 15 digitos."
+class Profile(models.Model):
+    user = models.OneToOneField (
+        User, 
+        on_delete = models.CASCADE
+    )
+
+    # picture = models.ImageField (
+    #     'profile picture',
+    #     upload_to = 'users/pictures/',
+    #     blank = True,
+    #     null = True
     # )
-    phone_number = models.CharField(
-        # validators = [phone_regex]
-        max_length = 17, 
-        blank = True
+
+    biography = models.CharField (
+        max_length = 500,
+        blank = True,
+        null = True
+    )    
+
+    dni = models.CharField (
+        max_length = 500,
+        blank = True,
+        null = True
     )
 
-    #establecemos email como identificador principal
-    USERNAME_FIELD = 'email'
+    phone = models.CharField (
+        max_length = 500,
+        blank = True,
+        null = True
+    )  
 
-    #todos los usuarios que se crean tienen que tener al menos estos campos
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
-
-    #determinamos que tipo de usuario es, si es administrador o cliente
-    is_client = models.BooleanField (
-        'client status',
-        default = True,
-        help_text = (
-            'Ayuda a distinguir fácilmente a los usuarios y las consultas.' 
-            'Los clientes son el tipo principal de usuario'
-        )
+    reputation = models.FloatField (
+        default = 0,
+        help_text = 'Reputació del usuario en base a depositos efectuados'
     )
 
-    #Nos indica que el usuario a confirmado su correo electronico
-    is_verified = models.BooleanField (
-        'verified',
-        default = True,
-        help_text = 'Se establece en verdadero cuando el usuario ha verificado su direccion de correo electrónico'
+    address = models.CharField (
+        max_length = 500,
+        blank = True,
+        null = True
     )
 
-    def __str__(self):
-        return self.username
+    city = models.ForeignKey(
+        City,
+        null = True,
+        blank = True,
+        default = None,
+        on_delete = models.SET_NULL
+    )
 
-    def get_short_name(self):
-        return self.username
+
+    created = models.DateTimeField (
+        'created at',
+        auto_now_add = True,
+        help_text = 'Date time on which the object was created.'
+    )
+    modified = models.DateTimeField (
+        'modified at',
+        auto_now = True,
+        help_text = 'Date time on which the object was last created.'
+    )
+
+    def __str__ (self):
+        return str (self.user)

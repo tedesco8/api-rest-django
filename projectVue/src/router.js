@@ -2,14 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
 import Home from './views/Home.vue'
-import Categoria from './components/Categoria.vue'
+
 import Login from './components/Login.vue'
-import Usuario from './components/Usuario.vue'
+
+import Contenedores from './components/Contenedores.vue'
 import Articulo from './components/Articulo.vue'
-import Cliente from './components/Cliente.vue'
-import Proveedor from './components/Proveedor.vue'
-import Ingreso from './components/Ingreso.vue'
-import Venta from './components/Venta.vue'
+
+import Usuarios from './components/Usuarios.vue'
+
 import ReporteVentas from './components/ReporteVentas.vue'
 import ReporteIngresos from './components/ReporteIngresos.vue'
 
@@ -24,9 +24,7 @@ var router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        administrador: true,
-        almacenero: true,
-        vendedor: true
+        libre: true
       }
     },
     {
@@ -38,12 +36,11 @@ var router = new Router({
       }
     },
     {
-      path: '/categoria',
-      name: 'categoria',
-      component: Categoria,
+      path: '/contenedores',
+      name: 'contenedores',
+      component: Contenedores,
       meta: {
-        administrador: true,
-        almacenero: true
+        libre: true
       }
     },
     {
@@ -51,52 +48,15 @@ var router = new Router({
       name: 'articulo',
       component: Articulo,
       meta: {
-        administrador: true,
-        almacenero: true
+        libre: true
       }
     },
     {
-      path: '/ingreso',
-      name: 'ingreso',
-      component: Ingreso,
+      path: '/usuarios',
+      name: 'usuarios',
+      component: Usuarios,
       meta: {
-        administrador: true,
-        almacenero: true
-      }
-    },
-    {
-      path: '/cliente',
-      name: 'cliente',
-      component: Cliente,
-      meta: {
-        administrador: true,
-        vendedor: true
-      }
-    },
-    {
-      path: '/venta',
-      name: 'venta',
-      component: Venta,
-      meta: {
-        administrador: true,
-        vendedor: true
-      }
-    },
-    {
-      path: '/proveedor',
-      name: 'proveedor',
-      component: Proveedor,
-      meta: {
-        administrador: true,
-        almacenero: true
-      }
-    },
-    {
-      path: '/usuario',
-      name: 'usuario',
-      component: Usuario,
-      meta: {
-        administrador: true
+        libre: true
       }
     },
     {
@@ -104,7 +64,7 @@ var router = new Router({
       name: 'reporteVentas',
       component: ReporteVentas,
       meta: {
-        administrador: true
+        libre: true
       }
     },
     {
@@ -112,7 +72,7 @@ var router = new Router({
       name: 'reporteIngresos',
       component: ReporteIngresos,
       meta: {
-        administrador: true
+        libre: true
       }
     }
   ]
@@ -120,18 +80,6 @@ var router = new Router({
 router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.libre)){
       next();
-  } else if (store.state.usuario && store.state.usuario.rol == 'Administrador'){
-    if (to.matched.some(record => record.meta.administrador)){
-      next();
-    }
-  } else if (store.state.usuario && store.state.usuario.rol == 'Vendedor'){
-    if (to.matched.some(record => record.meta.vendedor)){
-      next();
-    }
-  } else if (store.state.usuario && store.state.usuario.rol == 'Almacenero'){
-    if (to.matched.some(record => record.meta.almacenero)){
-      next()
-    }
   } else {
     next({name: 'login'});
   }

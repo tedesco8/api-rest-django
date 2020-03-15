@@ -8,7 +8,7 @@
     >
       <v-list dense>
         <!-- HOME -->
-        <template v-if="esAdministrador || esAlmacenero || esVendedor">
+        <template>
           <v-list-item :to="{name: 'home'}">
             <v-list-item-action>
               <v-icon>home</v-icon>
@@ -19,116 +19,41 @@
           </v-list-item>
         </template>
 
-        <!-- ALMACEN -->
-        <template v-if="esAdministrador || esAlmacenero" >
+        <!-- CONTENEDORES -->
+        <template>
           <v-list-group>
             <v-list-item slot="activator">
               <v-list-item-content>
                 <v-list-item-title>
-                  Almacén
+                  Contenedores
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item :to="{name: 'categoria'}">
+            <v-list-item :to="{name: 'contenedores'}">
               <v-list-item-action>
                 <v-icon>table_chart</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>
-                  Categorías
+                  Contenedores
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item :to="{name: 'articulo'}">
-              <v-list-item-action>
-                <v-icon>table_chart</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Artículos
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
+            
           </v-list-group>
         </template>
 
-        <!-- COMPRAS -->
-        <template v-if="esAdministrador || esAlmacenero">
+        <!-- USUARIOS -->
+        <template>
           <v-list-group>
             <v-list-item slot="activator">
               <v-list-item-content>
                 <v-list-item-title>
-                  Compras
+                  Usuarios
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item :to="{name: 'ingreso'}">
-              <v-list-item-action>
-                <v-icon>table_chart</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Ingresos
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item :to="{name: 'proveedor'}">
-              <v-list-item-action>
-                <v-icon>table_chart</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Proveedores
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-group>
-        </template>
-
-        <!-- VENTAS -->
-        <template v-if="esAdministrador || esVendedor">
-          <v-list-group>
-            <v-list-item slot="activator">
-              <v-list-item-content>
-                <v-list-item-title>
-                  Ventas
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item :to="{name: 'venta'}">
-              <v-list-item-action>
-                <v-icon>table_chart</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Ventas
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item :to="{name: 'cliente'}">
-              <v-list-item-action>
-                <v-icon>table_chart</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>
-                  Cliente
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-group>
-        </template>
-
-        <!-- ACCESOS -->
-        <template v-if="esAdministrador">
-          <v-list-group>
-            <v-list-item slot="activator">
-              <v-list-item-content>
-                <v-list-item-title>
-                  Accesos
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-list-item :to="{name: 'usuario'}">
+            <v-list-item :to="{name: 'usuarios'}">
               <v-list-item-action>
                 <v-icon>table_chart</v-icon>
               </v-list-item-action>
@@ -142,7 +67,7 @@
         </template>
         
         <!-- REPORTES -->
-        <template v-if="esAdministrador || esAlmacenero || esVendedor">
+        <template>
           <v-list-group>
             <v-list-item slot="activator">
               <v-list-item-content>
@@ -151,23 +76,23 @@
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item :to="{name: 'reporteIngresos'}">
+            <v-list-item :to="{name: ''}">
               <v-list-item-action>
                 <v-icon>table_chart</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>
-                  Consulta Compras
+                  Reciclados
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item :to="{name: 'reporteVentas'}">
+            <v-list-item :to="{name: ''}">
               <v-list-item-action>
                 <v-icon>table_chart</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>
-                  Consulta Ventas
+                  Incidencias
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -176,10 +101,11 @@
       </v-list>
     </v-navigation-drawer>
 
+  <!-- HEADER -->
     <v-app-bar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       app
-      color="blue darken-3"
+      color="teal darken-1"
       dark
     >
       <v-toolbar-title
@@ -187,7 +113,7 @@
         class="ml-0 pl-3"
       >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <span class="hidden-sm-and-down">SIGESCO</span>
+        <span class="hidden-sm-and-down">SGRC</span>
       </v-toolbar-title>
       
       <v-spacer></v-spacer>
@@ -208,12 +134,13 @@
         </v-slide-y-transition>
       </v-container>
     </v-content>
+    <!-- FOOTER -->
     <v-footer height="auto">
       <v-layout justify-center>
         <v-flex text-center>
           <v-card flat title color="primary" class="white--text">
             <v-card-text class="white--text pt-0">
-              Sistema &copy;2019
+              Developed By Outboxdev &copy;2019
             </v-card-text>
           </v-card>
         </v-flex>
@@ -234,15 +161,6 @@ export default {
   computed:{
     logueado(){
       return this.$store.state.usuario;
-    },
-    esAdministrador(){
-      return this.$store.state.usuario && this.$store.state.usuario.rol == 'Administrador';
-    },
-    esAlmacenero(){
-      return this.$store.state.usuario && this.$store.state.usuario.rol == 'Almacenero';
-    },
-    esVendedor(){
-      return this.$store.state.usuario && this.$store.state.usuario.rol == 'Vendedor';
     }
   },
   created(){
