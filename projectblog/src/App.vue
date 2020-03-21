@@ -31,7 +31,6 @@
       :clipped="$vuetify.breakpoint.lgAndUp"
     >
       <v-list dense>
-        <!-- HOME -->
         <template>
           <v-list-item :to="{name: 'Home'}">
             <v-list-item-action>
@@ -86,17 +85,36 @@
       </v-container>
     </v-content>
     <!-- FOOTER -->
-    <v-footer height="auto">
-      <v-layout justify-center>
-        <v-flex text-center>
-          <v-card flat title color="primary" class="white--text">
-            <v-card-text class="white--text pt-0">
-              Developed By Outboxdev &copy;2019
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-footer>
+  <v-footer
+    dark
+    padless
+  >
+    <v-card
+      class="flex"
+      flat
+      tile
+    >
+      <v-card-title color="primary" class="teal">
+        <strong class="subheading">No te olvides de seguirnos en nuestras redes sociales!</strong>
+
+        <v-spacer></v-spacer>
+
+        <v-btn
+          v-for="icon in icons"
+          :key="icon"
+          class="mx-4"
+          dark
+          icon
+        >
+          <v-icon size="24px">{{ icon }}</v-icon>
+        </v-btn>
+      </v-card-title>
+
+      <v-card-text class="py-2 white--text text-center">
+        &copy; {{ new Date().getFullYear() }} <strong>No Más Colillas Uruguay</strong>
+      </v-card-text>
+    </v-card>
+  </v-footer>
   </v-app>
 </template>
 
@@ -107,6 +125,13 @@ export default {
   data () {
     return {
       drawer: false,
+      icons: [
+        'fab fa-facebook',
+        'fab fa-twitter',
+        'fab fa-google-plus',
+        'fab fa-linkedin',
+        'fab fa-instagram',
+      ],
     }
   }
 };
