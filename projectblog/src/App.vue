@@ -4,7 +4,7 @@
     <v-app-bar
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       app
-      color="teal primary"
+      color="teal secondary"
       dark
     >
       <v-toolbar-title
@@ -85,36 +85,55 @@
       </v-container>
     </v-content>
     <!-- FOOTER -->
-  <v-footer
-    dark
-    padless
-  >
-    <v-card
-      class="flex"
-      flat
-      tile
-    >
-      <v-card-title color="primary" class="teal">
-        <strong class="subheading">No te olvides de seguirnos en nuestras redes sociales!</strong>
-
-        <v-spacer></v-spacer>
-
-        <v-btn
-          v-for="icon in icons"
-          :key="icon"
-          class="mx-4"
-          dark
-          icon
+      <v-footer
+        v-bind="localAttrs"
+        :padless="padless"
+      >
+        <v-card
+          flat
+          tile
+          width="100%"
+          class="text-center"
+          color='primary'
         >
-          <v-icon size="24px">{{ icon }}</v-icon>
-        </v-btn>
-      </v-card-title>
-
-      <v-card-text class="py-2 white--text text-center">
-        &copy; {{ new Date().getFullYear() }} <strong>No Más Colillas Uruguay</strong>
-      </v-card-text>
-    </v-card>
-  </v-footer>
+          <v-card-text>
+            <v-btn
+              class="mx-4"
+              icon
+              :to="{name: 'Home'}"
+            >
+              <v-icon size="24px">home</v-icon>
+            </v-btn>
+            <v-btn
+              class="mx-4"
+              icon
+              :to="{name: 'Home'}"
+            >
+              <v-icon size="24px">contact_mail</v-icon>
+            </v-btn>
+            <v-btn
+              class="mx-4"
+              icon
+              :to="{name: 'Home'}"
+            >
+              <v-icon size="24px">assignment</v-icon>
+            </v-btn>
+            <v-btn
+              class="mx-4"
+              icon
+              :to="{name: 'Home'}"
+            >
+              <v-icon size="24px">https</v-icon>
+            </v-btn>
+          </v-card-text>
+  
+          <v-divider></v-divider>
+  
+          <v-card-text class="white--text">&copy;
+            {{ new Date().getFullYear() }} — <strong>No Más Colillas Uruguay</strong>
+          </v-card-text>
+        </v-card>
+      </v-footer>
   </v-app>
 </template>
 
@@ -125,13 +144,6 @@ export default {
   data () {
     return {
       drawer: false,
-      icons: [
-        'fab fa-facebook',
-        'fab fa-twitter',
-        'fab fa-google-plus',
-        'fab fa-linkedin',
-        'fab fa-instagram',
-      ],
     }
   }
 };
