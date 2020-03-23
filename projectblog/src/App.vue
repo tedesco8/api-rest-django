@@ -130,7 +130,7 @@
           <v-divider></v-divider>
   
           <v-card-text class="white--text">&copy;
-            {{ new Date().getFullYear() }} — <strong>No Más Colillas Uruguay</strong>
+            {{ new Date().getFullYear() }} — <strong>NMC Uruguay</strong>
           </v-card-text>
         </v-card>
       </v-footer>

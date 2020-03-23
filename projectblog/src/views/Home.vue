@@ -1,44 +1,23 @@
 <template>
-  <!--Container centra todo nuestro contenido, con el atributo fluid se pega mas a los bordes-->
-  <v-container fluid>
-    <!--Layout funciona como el row de bootstrap, para trabajar con una fila y el sistema. Wrap es para que no se pise y respete el sistema-->
-    <v-layout class = "secondary" justify-center align-center style="height:300px">
-      <v-flex class="info" xs3>
-        <h2 class="text-sm-center">Centrado</h2>
-      </v-flex>
-      <v-flex class="success" xs3>
-        <h2 class="text-sm-center">Centrado</h2>
-      </v-flex>
-    </v-layout>
-    <v-layout mt-2 wrap style="height:450px">
-      <v-flex class = "pink lighten" md4>
-          <p class = "text-sm-center">
-            Busque los contenedores mas cercanos. Haga click sobre uno de ellos y 
-            se le informara los datos para coordinar con el colaborador.
-          </p>
-          <p class="text-sm-center">Quieres transformarte en colaborador? Unete a la
-            comunidad mas grande de latinoamerica en reciclaje de colillas
-          </p>
-          <v-btn color = "secundary">
-            <v-icon left>forum</v-icon>
-              Quiero Colaborar
-          </v-btn>
-      </v-flex>
-      <v-flex class="purple darken-4" md8>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26175.6067641435!2d-56.190242775252905!3d-34.907683038461066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81cb78209d13%3A0xfaf367ad3024da1c!2sIntendencia%20de%20Montevideo!5e0!3m2!1ses-419!2suy!4v1584736945626!5m2!1ses-419!2suy" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-      </v-flex>
-    </v-layout>
-    <v-layout>
-      <v-flex>
-        <h1 class="display-1 text-sm-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente dignissimos delectus, tempore vitae doloremque perspiciatis illo sit voluptatem nesciunt iure fugiat vero nulla ad unde libero at inventore in excepturi.</h1>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <!--SLIDER-->
+    <Slider />
+  <!--MAPA-->
+    <Map />
+  <!--CARDS-->
+    <Card />
 </template>
 
 <script>
+  import Map from './Maps'
+  import Slider from './Slider'
+  import Card from './Cards'
 
-export default {
- 
-}
+  export default {
+    components: {
+      Map,
+      Slider,
+      Card
+    }
+  
+  }
 </script>
