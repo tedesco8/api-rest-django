@@ -11,6 +11,7 @@
     "core-js": "^3.6.4",
     "materialize-social": "^1.0.3",
     "vue": "^2.6.11",
+    "vue-fragment": "^1.5.1",
     "vue-router": "^3.1.5",
     "vue2-google-maps": "^0.10.7",
     "vuetify": "^2.2.11",
