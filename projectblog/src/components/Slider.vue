@@ -1,7 +1,7 @@
 <template>
     <!--Container centra todo nuestro contenido, con el atributo fluid se pega mas a los bordes-->
     
-    <v-carousel>
+    <v-carousel cycle>
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
