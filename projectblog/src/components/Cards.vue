@@ -1,6 +1,6 @@
 <template>
         <!--Container centra todo nuestro contenido, con el atributo fluid se pega mas a los bordes-->
-        <v-container fluid grid-list-md>
+        <v-container grid-list-md fluid>
             <v-layout row wrap>
                 <v-flex 
                 v-for="item in post" 
