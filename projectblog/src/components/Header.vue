@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-toolbar-title
+      <v-toolbar-title
         style="width: 300px"
         class="ml-0 pl-3"
       >

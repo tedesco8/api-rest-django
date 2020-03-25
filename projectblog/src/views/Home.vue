@@ -1,12 +1,12 @@
 <template>
-  <v-fragment>
+  <v-container fluid>
     <!--SLIDER-->
       <Slider />
     <!--MAPA-->
       <Map />
     <!--CARDS-->
       <Card />
-  </v-fragment>
+  </v-container>
 </template>
 
 <script>

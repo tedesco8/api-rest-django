@@ -1,6 +1,6 @@
 <template>
     <!--Container centra todo nuestro contenido, con el atributo fluid se pega mas a los bordes-->
-    <v-container>
+    <v-container fluid>
         <v-layout row mt-2 wrap style="height:450px">
           <v-flex class = "pink lighten" md4>
               <p class = "text-sm-center">
