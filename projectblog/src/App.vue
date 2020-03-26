@@ -107,7 +107,7 @@
             <v-btn
               class="mx-4"
               icon
-              :to="{name: 'Home'}"
+              :to="{name: 'Contact'}"
             >
               <v-icon size="24px">contact_mail</v-icon>
             </v-btn>
