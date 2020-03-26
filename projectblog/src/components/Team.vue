@@ -12,8 +12,9 @@
                 class="mx-auto"
                 >
                     <v-img
-                        class="white--text align-end"
+                        class="white--text align-end img-circle"
                         :src="item.src"
+                        cycle
                     >
                     </v-img>
 
@@ -55,3 +56,8 @@
             }
     }
 </script>
+<style scoped>
+    .img-circle {
+        border-radius: 100%;
+    }
+</style>
