@@ -68,7 +68,7 @@ ROOT_URLCONF = 'sgrc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'sendmail/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,6 +80,12 @@ TEMPLATES = [
         },
     },
 ]
+
+# Email settings
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'username'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_PORT = '2525'
 
 WSGI_APPLICATION = 'sgrc.wsgi.application'
 
