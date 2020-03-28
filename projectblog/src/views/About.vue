@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-content class="pt-0">
       <v-img style="height:300px" src="../assets/QSM.jpg">
         <v-row align="end" class="lightbox white--text pa-2 fill-height">
           <v-col>

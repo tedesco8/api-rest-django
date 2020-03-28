@@ -17,7 +17,7 @@
                             <p>{{item.description}}</p>
                         </v-card-text>
                         <v-card-actions>
-                            <v-btn color="info" flat>Ver más</v-btn>
+                            <v-btn text color="info" flat>Ver más</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-flex>
