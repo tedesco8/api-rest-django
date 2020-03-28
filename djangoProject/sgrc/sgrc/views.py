@@ -7,13 +7,21 @@ from django.http import HttpResponse
 
 class send_email(viewsets.ModelViewSet):
     def sendmail(request):
-    
-        send_mail(
-            'Subject',
-            'Email message',
-            'from@example.com',
-            ['to@example.com'],
-            fail_silently=False,
-        )
 
-        return HttpResponse('Mail successfully send')
+        subject = request.POST.get('subject', '')
+        message = request.POST.get('message', '')
+        from_email = request.POST.get('from_email', '')
+        if subject and message and from_email:
+            try:
+                send_mail(
+                    subject,
+                    message,
+                    from_email,
+                    ['contacto@outboxdev.net'],
+                    fail_silently=False,
+                )
+                return HttpResponse('Mail successfully send')
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+        else:
+            return HttpResponse('Make sure all fields are entered and valid.')

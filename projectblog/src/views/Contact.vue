@@ -18,7 +18,7 @@
                 con usted a la brevedad.
             </p>
         </v-container>
-        <v-form v-model="valid">
+        <v-form v-model="valid" @submit.prevent="sendEmail">
             <v-container>
                 <v-row>
                     <v-col
@@ -69,7 +69,12 @@
                             required
                         ></v-textarea>
                     </v-col>
-                    <v-btn block color="secondary" dark>Enviar</v-btn>
+                    <v-btn 
+                      block 
+                      color="secondary" 
+                      dark 
+                      type="submit" 
+                      value="Send">Enviar</v-btn>
                 </v-row>
             </v-container>
         </v-form>

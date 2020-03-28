@@ -23,6 +23,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '73_)&---3svv##579gh#df3eok16&tqz(#-@y=b-f+eof3j3e7'
 
+# Enviroment
+import json
+from django.core.exceptions import ImproperlyConfigured
+
+with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
+    secrets = json.load(secrets_file)
+
+def get_secret(setting, secrets=secrets):
+    """Get secret setting or fail with ImproperlyConfigured"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        raise ImproperlyConfigured("Set the {} setting".format(setting))
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -82,10 +96,10 @@ TEMPLATES = [
 ]
 
 # Email settings
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = 'username'
-EMAIL_HOST_PASSWORD = 'password'
-EMAIL_PORT = '2525'
+EMAIL_HOST = get_secret('E_HOST')
+EMAIL_HOST_USER = get_secret('E_HOST_USER')
+EMAIL_HOST_PASSWORD = get_secret('E_HOST_PASSWORD')
+EMAIL_PORT = get_secret('E_PORT')
 
 WSGI_APPLICATION = 'sgrc.wsgi.application'
 
@@ -96,11 +110,11 @@ WSGI_APPLICATION = 'sgrc.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'drf_api',
-        'HOST': '82.194.90.10',
-        'USER': 'outbox_dev',
-        'PASSWORD': 'x8090235p',
-        'PORT': 3306
+        'NAME': get_secret('DB_NAME'),
+        'HOST': get_secret('DB_HOST'),
+        'USER': get_secret('DB_USER'),
+        'PASSWORD': get_secret('DB_PASSWORD'),
+        'PORT': get_secret('DB_PORT')
     }
 }
 

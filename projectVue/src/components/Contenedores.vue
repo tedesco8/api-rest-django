@@ -237,6 +237,7 @@ export default {
       let cuerpoHeader = `Bearer ${access}`;
       let header = { Authorization: cuerpoHeader };
       let configuracion = { headers: header };
+      debugger;
       if (this.validar()) {
         return;
       }
@@ -298,6 +299,7 @@ export default {
       }
     },
     editItem(item) {
+      debugger;
       this._id = item.id;
       this.colaborador = item.colaborador;
       this.descripcion = item.descripcion;
