@@ -18,7 +18,7 @@
                 con usted a la brevedad.
             </p>
         </v-container>
-        <v-form v-model="valid" @submit.prevent="sendEmail">
+        <v-form v-model="valid" @submit.prevent="sendEmail()">
             <v-container>
                 <v-row>
                     <v-col
@@ -73,14 +73,18 @@
                       block 
                       color="secondary" 
                       dark 
-                      type="submit" 
-                      value="Send">Enviar</v-btn>
+                      type="submit"
+                      value="Send"
+                      :disabled="!valid">Enviar</v-btn>
                 </v-row>
             </v-container>
         </v-form>
   </v-content>
 </template>
 <script>
+import axios from "axios";
+import swal from 'sweetalert';
+
 export default {
   data: () => ({
     valid: false,
@@ -100,6 +104,32 @@ export default {
       v => !!v || 'Debe ingresar un comentario, pregunta o problema',
       v => v.length <= 100 || 'Escriba al menos 100 caracteres',
     ],
+
+    methods: {
+      sendEmail() {
+        //POST
+        axios
+          .post(
+              "/v3/email/email",
+              { 
+                subject: this.firstname + this.lastname,
+                message: this.descripcion,
+                from_email: this.email,
+              }
+            )
+            .then(function(response) {
+              swal({
+                title: "Buen trabajo!",
+                text: "Mensaje enviado exitosamente",
+                icon: "success"
+              });
+              return response
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+      }
+    }
   }),
 }
 </script>
