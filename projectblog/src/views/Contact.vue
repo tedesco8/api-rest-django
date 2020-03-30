@@ -111,7 +111,7 @@ export default {
         //POST
         axios
           .post(
-              "/v3/email/email",
+              "/v3/contacto/",
               { 
                 subject: this.firstname + this.lastname,
                 message: this.comment,
