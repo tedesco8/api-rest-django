@@ -97,34 +97,54 @@
           color='primary'
         >
           <v-card-text>
-            <v-btn
-              class="mx-4"
-              icon
-              :to="{name: 'Home'}"
-            >
-              <v-icon size="24px">home</v-icon>
-            </v-btn>
-            <v-btn
-              class="mx-4"
-              icon
-              :to="{name: 'Contact'}"
-            >
-              <v-icon size="24px">contact_mail</v-icon>
-            </v-btn>
-            <v-btn
-              class="mx-4"
-              icon
-              :to="{name: 'Home'}"
-            >
-              <v-icon size="24px">assignment</v-icon>
-            </v-btn>
-            <v-btn
-              class="mx-4"
-              icon
-              :to="{name: 'Home'}"
-            >
-              <v-icon size="24px">https</v-icon>
-            </v-btn>
+            <v-tooltip v-model="show" top>
+              <template v-slot:activator="{ on }">
+                <v-btn 
+                class="mx-4"
+                icon
+                 v-on="on"
+                :to="{name: 'Home'}">
+                  <v-icon size="24px">home</v-icon>
+                </v-btn>
+              </template>
+              <span>Inicio</span>
+            </v-tooltip>
+            <v-tooltip v-model="show" top>
+              <template v-slot:activator="{ on }">
+                <v-btn 
+                class="mx-4"
+                icon
+                 v-on="on"
+                :to="{name: 'Contact'}">
+                  <v-icon size="24px">contact_mail</v-icon>
+                </v-btn>
+              </template>
+              <span>Contacto</span>
+            </v-tooltip>
+            <v-tooltip v-model="show" top>
+              <template v-slot:activator="{ on }">
+                <v-btn 
+                class="mx-4"
+                icon
+                 v-on="on"
+                :to="{name: 'Home'}">
+                  <v-icon size="24px">assignment</v-icon>
+                </v-btn>
+              </template>
+              <span>Términos y Condiciones</span>
+            </v-tooltip>
+            <v-tooltip v-model="show" top>
+              <template v-slot:activator="{ on }">
+                <v-btn 
+                class="mx-4"
+                icon
+                 v-on="on"
+                :to="{name: 'Home'}">
+                  <v-icon size="24px">https</v-icon>
+                </v-btn>
+              </template>
+              <span>Políticas de privacidad</span>
+            </v-tooltip>
           </v-card-text>
   
           <v-divider></v-divider>

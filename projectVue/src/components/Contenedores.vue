@@ -237,7 +237,6 @@ export default {
       let cuerpoHeader = `Bearer ${access}`;
       let header = { Authorization: cuerpoHeader };
       let configuracion = { headers: header };
-      debugger;
       if (this.validar()) {
         return;
       }

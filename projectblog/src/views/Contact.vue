@@ -18,7 +18,7 @@
                 con usted a la brevedad.
             </p>
         </v-container>
-        <v-form v-model="valid" @submit.prevent="sendEmail()">
+        <v-form ref="form" v-model="valid" >
             <v-container>
                 <v-row>
                     <v-col
@@ -73,9 +73,8 @@
                       block 
                       color="secondary" 
                       dark 
-                      type="submit"
-                      value="Send"
-                      :disabled="!valid">Enviar</v-btn>
+                      :disabled="!valid"
+                      @click="sendEmail">Enviar</v-btn>
                 </v-row>
             </v-container>
         </v-form>
@@ -104,16 +103,18 @@ export default {
       v => !!v || 'Debe ingresar un comentario, pregunta o problema',
       v => v.length <= 100 || 'Escriba al menos 100 caracteres',
     ],
-
-    methods: {
+  }),
+  methods: {
+    /* eslint-disable no-debugger */
       sendEmail() {
+        debugger;
         //POST
         axios
           .post(
               "/v3/email/email",
               { 
                 subject: this.firstname + this.lastname,
-                message: this.descripcion,
+                message: this.comment,
                 from_email: this.email,
               }
             )
@@ -129,7 +130,7 @@ export default {
               console.log(error);
             });
       }
+      /* eslint-enable no-debugger */
     }
-  }),
 }
 </script>

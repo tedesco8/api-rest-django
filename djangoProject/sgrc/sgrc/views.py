@@ -2,10 +2,13 @@
 from rest_framework import viewsets,status
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from rest_framework.decorators import action
 
 
 
 class send_email(viewsets.ModelViewSet):
+
+    @action(detail=True,methods=['POST',])
     def sendmail(request):
 
         subject = request.POST.get('subject', '')
