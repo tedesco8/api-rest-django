@@ -59,7 +59,17 @@
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>
-                  Usuarios
+                  Todos
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item :to="{name: 'usuarios'}">
+              <v-list-item-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Mi perfil
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -97,6 +107,58 @@
               </v-list-item-content>
             </v-list-item>
           </v-list-group>
+        </template>
+         <!-- REPORTES -->
+        <template>
+          <v-list-group>
+            <v-list-item slot="activator">
+              <v-list-item-content>
+                <v-list-item-title>
+                  Blog
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item :to="{name: ''}">
+              <v-list-item-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Nueva entrada
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item :to="{name: ''}">
+              <v-list-item-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Todas las entradas
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item :to="{name: ''}">
+              <v-list-item-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Categorías
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+          <v-list-item :to="{name: ''}">
+              <v-list-item-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Páginas
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
         </template>   
       </v-list>
     </v-navigation-drawer>

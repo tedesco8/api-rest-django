@@ -88,13 +88,28 @@
       <v-data-table :headers="headers" :items="contenedores" :search="search" class="elevation-1">
         <!--Editar-->
         <template v-slot:item.opciones="{item}">
-          <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
+          <v-tooltip v-model="show" top>
+              <template v-slot:activator="{ on }">
+                <v-icon v-on="on" small class="mr-2" @click="editItem(item)">edit</v-icon>
+              </template>
+              <span>Editar</span>
+          </v-tooltip>
           <!--Activar/Desactivarr-->
           <div v-if="item.activo">
-            <v-icon small @click="activarDesactivarMostrar(2,item)">block</v-icon>
+            <v-tooltip v-model="show" top>
+              <template v-slot:activator="{ on }">
+                <v-icon v-on="on" small @click="activarDesactivarMostrar(2,item)">block</v-icon>
+              </template>
+              <span>Desactivar</span>
+            </v-tooltip>
           </div>
           <div v-else>
-            <v-icon small @click="activarDesactivarMostrar(1,item)">check</v-icon>
+            <v-tooltip v-model="show" top>
+              <template v-slot:activator="{ on }">
+                <v-icon v-on="on" small @click="activarDesactivarMostrar(1,item)">check</v-icon>
+              </template>
+              <span>Desactivar</span>
+            </v-tooltip>
           </div>
         </template>
         <!--Activar o desactivar-->
