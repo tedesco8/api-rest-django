@@ -10,6 +10,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "emailjs": "^2.2.0",
+    "emailjs-com": "^2.4.1",
     "materialize-social": "^1.0.3",
     "sweetalert": "^2.1.2",
     "vue": "^2.6.11",

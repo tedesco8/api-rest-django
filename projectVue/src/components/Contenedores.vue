@@ -281,7 +281,7 @@ export default {
             me.listar();
           })
           .catch(function(error) {
-            console.log(error);
+            console.log(error); queryset = Contenedor.objects.all()
           });
       } else {
         //POST

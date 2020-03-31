@@ -23,7 +23,7 @@
                 <v-row>
                     <v-col
                         cols="12"
-                        md="4"
+                        md="6"
                     >
                         <v-text-field
                             v-model="firstname"
@@ -33,10 +33,9 @@
                             required
                         ></v-text-field>
                     </v-col>
-        
                     <v-col
                         cols="12"
-                        md="4"
+                        md="6"
                     >
                         <v-text-field
                             v-model="lastname"
@@ -46,10 +45,21 @@
                             required
                         ></v-text-field>
                     </v-col>
-        
                     <v-col
                         cols="12"
-                        md="4"
+                        md="6"
+                    >
+                        <v-text-field
+                            v-model="subject"
+                            :rules="nameRules"
+                            :counter="10"
+                            label="Asunto"
+                            required
+                        ></v-text-field>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        md="6"
                     >
                         <v-text-field
                             v-model="email"
@@ -81,14 +91,19 @@
   </v-content>
 </template>
 <script>
-import axios from "axios";
 import swal from 'sweetalert';
+import emailjs from 'emailjs-com';
+
+(function(){
+    emailjs.init(process.env.VUE_APP_MY_ENV_VARIABLE);
+})();
 
 export default {
   data: () => ({
     valid: false,
     firstname: '',
     lastname: '',
+    subject: '',
     nameRules: [
       v => !!v || 'Nombre y apellido requerido',
       v => v.length <= 15 || 'El nombre o apellido debe tener menos de 15 caracteres',
@@ -107,30 +122,28 @@ export default {
   methods: {
     /* eslint-disable no-debugger */
       sendEmail() {
-        debugger;
-        //POST
-        axios
-          .post(
-              "/v3/contacto/",
-              { 
-                subject: this.firstname + this.lastname,
-                message: this.comment,
-                from_email: this.email,
-              }
-            )
-            .then(function(response) {
-              swal({
-                title: "Buen trabajo!",
-                text: "Mensaje enviado exitosamente",
-                icon: "success"
-              });
-              return response
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
+        var data 	= {
+          from_name: this.firstname + this.lastname,
+          from_email: this.email,
+          message: this.comment,
+          subject: this.subject
+        }
+        emailjs.send('gmail', 'nmcu', data)
+        .then(() => {
+          swal({
+            title: "Buen trabajo!",
+            text: "Usuario editado exitosamente",
+            icon: "success"
+          });
+        }).catch( () => {
+          swal({
+            title: "Lo siento",
+            text: "Ocurrio un problema con el servidor",
+            icon: "error"
+          });
+        })
       }
       /* eslint-enable no-debugger */
-    }
+  }
 }
 </script>
