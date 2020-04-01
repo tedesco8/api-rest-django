@@ -120,9 +120,18 @@ export default {
     ],
   }),
   methods: {
+
+    limpiar() {
+      this.firstname = "";
+      this.lastname = "";
+      this.email = "";
+      this.comment = "";
+      this.subject = "";
+    },
     /* eslint-disable no-debugger */
       sendEmail() {
-        var data 	= {
+        let me = this;
+        let data 	= {
           from_name: this.firstname + this.lastname,
           from_email: this.email,
           message: this.comment,
@@ -132,9 +141,10 @@ export default {
         .then(() => {
           swal({
             title: "Buen trabajo!",
-            text: "Usuario editado exitosamente",
+            text: "Uno de nuestros colaboradores se comunicara con usted a la brevedad.",
             icon: "success"
           });
+          me.limpiar();
         }).catch( () => {
           swal({
             title: "Lo siento",
