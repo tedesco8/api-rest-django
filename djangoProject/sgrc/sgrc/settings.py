@@ -95,12 +95,6 @@ TEMPLATES = [
     },
 ]
 
-# Email settings
-EMAIL_HOST = get_secret('E_HOST')
-EMAIL_HOST_USER = get_secret('E_HOST_USER')
-EMAIL_HOST_PASSWORD = get_secret('E_HOST_PASSWORD')
-EMAIL_PORT = get_secret('E_PORT')
-
 WSGI_APPLICATION = 'sgrc.wsgi.application'
 
 

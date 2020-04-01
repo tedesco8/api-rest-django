@@ -13,6 +13,7 @@ urlpatterns = [
     path('v2/login/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 
     path('api/contenedores/', include((contenedores_router.urls,'contenedores'))),
+    path('api/coordenadas/', include((contenedores_router.urls,'coordenadas'))),
     path('api/usuarios/', include((usuarios_router.urls,'usuarios'))),
 ]
 

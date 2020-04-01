@@ -10,21 +10,17 @@ from rest_framework.response import Response
 #debugger
 import pdb
 
+#APIView para personalizar por completo
+class CoordenadasList(viewsets.ModelViewSet):
+    authentication_classes = ()
+    permission_classes = ()
+    queryset = Contenedor.objects.all()
+    serializer_class = ContenedorWriteSerializer
+
 #ModelViewSet genera todos los los endpoint de CRUD  
 class ContenedorViewSet(viewsets.ModelViewSet):
     queryset = Contenedor.objects.all()
     serializer_class = ContenedorWriteSerializer
-    # permission_classes = (IsAdminUser,)
-
-    '''
-    def get_queryset(self):
-        return Contenedor.objects.all()
-
-    def get_serializer_class(self):        
-        if self.request.method=='GET':            
-            return ContenedorSerializer
-        ContenedorSerializer
-    '''
 
     @action(detail=True,methods=['PUT',])
     def activate(self,request,pk = None):
