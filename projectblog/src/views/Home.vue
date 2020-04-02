@@ -4,9 +4,11 @@
       <Slider />
     <!--PRESENTATION-->
       <Presentation />
+      <!--PARALLAX-->
+      <Parallax />
     <!--MAPA-->
       <Map />
-      <Parallax />
+      
     <!--CARDS-->
       <Card />
   </v-container>

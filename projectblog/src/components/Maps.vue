@@ -3,7 +3,7 @@
     <v-container fluid>
         <v-layout row mt-2 wrap style="height:450px">
           <v-flex class="purple darken-4" md12>
-            <Map />
+            <Map :cont="cont"/>
           </v-flex>
         </v-layout>
     </v-container>
