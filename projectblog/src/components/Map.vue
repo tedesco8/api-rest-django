@@ -7,15 +7,25 @@
             <l-marker 
                 :key="index"
                 v-for="(c, index) in cont"
-                :lat-lng="latlng(c.lat, c.lng)">
-
+                :lat-lng="latlng(c.lat, c.lng)"
+            >
+                <l-popup>
+                    <div @click="innerClick">
+                        <h4>{{c.descripcion}}</h4>
+                        <ul>
+                            <li>Id Contenedor: {{c.id}}</li>
+                            <li>Id Colaborador: {{c.colaborador}}</li>
+                            <li>Capacidad: {{c.weight}} Kg</li>
+                        </ul>
+                    </div>
+                </l-popup>
             </l-marker>
         </l-map>
     </v-fragment>
 </template>
 <script>
 import { latLng } from "leaflet";
-import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
+import { LMap, LTileLayer, LPopup, LMarker } from 'vue2-leaflet';
     export default {
         name: 'Map',
         data() {
@@ -43,10 +53,17 @@ import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
             LMap,
             LTileLayer,
             LMarker,
+            LPopup
         },
         methods: {
             latlng: function(lat, lng) {
                 return latLng(lat, lng);
+            },
+            showLongText() {
+                this.showParagraph = !this.showParagraph;
+            },
+            innerClick() {
+                this.showLongText();
             }
         }
     }
