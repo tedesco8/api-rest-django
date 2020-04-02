@@ -90,7 +90,7 @@
         :padless="padless"
       >
         <v-card
-          flat
+          text
           tile
           width="100%"
           class="text-center"

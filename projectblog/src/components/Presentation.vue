@@ -28,7 +28,7 @@
               <v-card
                 class="py-12 px-4"
                 color="grey lighten-4"
-                flat
+                text
               >
                 <v-theme-provider dark>
                   <div>
