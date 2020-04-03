@@ -1,6 +1,6 @@
 <template>
   <v-content class="pt-0">
-      <v-img style="height:300px" src="../assets/QSM.jpg">
+      <v-img style="height:300px" src="../assets/CNT.png">
         <v-row align="end" class="lightbox white--text pa-2 fill-height">
           <v-col>
             <v-container>

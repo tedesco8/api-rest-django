@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container class="img-circle">
         <h2 class="text-center">Nuestro Equipo</h2>
         <v-row>
             <v-col 
@@ -12,9 +12,8 @@
                 class="mx-auto"
                 >
                     <v-img
-                        class="white--text align-end img-circle"
+                        class="white--text align-end"
                         :src="item.src"
-                        cycle
                     >
                     </v-img>
 
@@ -57,7 +56,7 @@
     }
 </script>
 <style scoped>
-    .img-circle {
-        border-radius: 100%;
-    }
+    /deep/ .v-image__image--cover {
+    border-radius: 100%;
+}
 </style>
