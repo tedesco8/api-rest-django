@@ -17,6 +17,17 @@
                             <li>Id Colaborador: {{c.colaborador}}</li>
                             <li>Capacidad: {{c.weight}} Kg</li>
                         </ul>
+                        <v-btn
+                            color="primary"
+                            fab
+                            dark    
+                            small
+                            absolute
+                            bottom
+                            right
+                        >
+                            <v-icon>add</v-icon>
+                        </v-btn>
                     </div>
                 </l-popup>
             </l-marker>
