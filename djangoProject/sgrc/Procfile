@@ -1,0 +1,1 @@
+web: gunicorn sgrc.wsgi --log-file -
