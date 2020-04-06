@@ -186,7 +186,7 @@ export default {
       let header = { Authorization: cuerpoHeader };
       let configuracion = { headers: header };      
       axios
-      .get("/api/contenedores/contenedores/?no_paginate=1", configuracion)
+      .get("/api/contenedores/contenedores?no_paginate=1", configuracion)
       .then(function(response) {        
         me.contenedores = response.data.results;        
       })

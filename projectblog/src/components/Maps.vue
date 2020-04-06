@@ -23,7 +23,7 @@
             Map
         },
         mounted: function () {
-          axios.get('api/coordenadas/coordenadas/')
+          axios.get('api/coordenadas/coordenadas/?activo=true')
             .then( r => {
               this.cont = r.data.results;
             })

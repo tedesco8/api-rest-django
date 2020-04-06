@@ -2,7 +2,7 @@
     <section id="stats">
         <v-parallax
           :height="$vuetify.breakpoint.smAndDown ? 700 : 500"
-          src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+          src="https://images.unsplash.com/photo-1417052800325-788e0eaf22c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
         >
           <v-container fill-height>
             <v-row class="mx-auto">
@@ -35,10 +35,10 @@ export default {
     data() {
         return {
             stats: [
-                ['24k', 'Github Stars'],
-                ['330+', 'Releases'],
-                ['1m', 'Downloads/mo'],
-                ['5m', 'Total Downloads'],
+                ['47', 'Colaboradores'],
+                ['132kg', 'Recolectado'],
+                ['37', 'Contenedores'],
+                ['19', 'Ciudades'],
             ],
         }
     }
