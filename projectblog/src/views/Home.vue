@@ -7,7 +7,7 @@
       <!--PARALLAX-->
       <Parallax />
     <!--MAPA-->
-      <Map />
+      <Maps :control="control"/>
       
     <!--CARDS-->
       <Card />
@@ -15,15 +15,21 @@
 </template>
 
 <script>
-  import Map from '../components/Maps.vue'
+  import Maps from '../components/Maps.vue'
   import Slider from '../components/Slider.vue'
   import Card from '../components/Cards.vue'
   import Presentation from '../components/Presentation.vue'
   import Parallax from '../components/Parallax.vue'
 
   export default {
+    data() 
+    {
+        return {
+            control: false
+        }
+    },
     components: {
-      Map,
+      Maps,
       Slider,
       Card,
       Presentation,
