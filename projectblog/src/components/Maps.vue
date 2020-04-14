@@ -9,6 +9,7 @@
     </v-container>
 </template>
 <script>
+/* eslint-disable no-debugger */
    import axios from 'axios';
    import Map from '../components/Map.vue'
     export default {
@@ -16,19 +17,39 @@
         data() {
             return {
                 //es brew
-                cont: []
+                cont: [],
+                user: 8
             }
         },
-         components: {
+        props: {
+            control: Boolean
+        },
+        components: {
             Map
         },
         mounted: function () {
-          axios.get('api/coordenadas/coordenadas/?activo=true')
+          debugger;
+          let me = this;
+          if(me.props.control) {
+            axios.get(`api/coordenadas/coordenadas/?colaborador=${this.user}`)
             .then( r => {
               this.cont = r.data.results;
             })
+            .catch(function(error) {
+              console.log(error);
+            })
+          } else {
+            axios.get('api/coordenadas/coordenadas/?activo=true')
+            .then( r => {
+              this.cont = r.data.results;
+            })
+            .catch(function(error) {
+              console.log(error);
+            })
+          }
         }
     }
+/* eslint-disable no-debugger */
 </script>
 <style>
 

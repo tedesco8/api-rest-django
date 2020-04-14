@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Contact from '../views/Contact.vue'
+import Colaborador from '../views/Colaborador.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,11 @@ const routes = [
     name: 'Contact',
     component: Contact
   },
+  {
+    path: '/colaborador',
+    name: 'Colaborador',
+    component: Colaborador
+  }
 ]
 
 const router = new VueRouter({
