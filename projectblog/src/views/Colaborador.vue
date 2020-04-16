@@ -1,5 +1,40 @@
 <template>
     <v-container fluid>
+        <v-toolbar>
+            <v-tabs
+                dark
+                background-color="secondary"
+                grow
+            >
+                <v-tab>
+                    <v-badge
+                        color="pink"
+                        dot
+                    >
+                        Llenos
+                    </v-badge>
+                    
+                </v-tab>
+        
+                <v-tab>
+                <v-badge
+                    color="green"
+                    content="6"
+                >
+                    Activos
+                </v-badge>
+                </v-tab>
+        
+                <v-tab>
+                <v-badge
+                    color="deep-purple accent-4"
+                    icon="mdi-vuetify"
+                >
+                    Resultados
+                </v-badge>
+                </v-tab>
+            </v-tabs>
+        </v-toolbar>
          <Maps :contenedores="contenedores" />
          <Table :headers="headers" :contenedores="contenedores" />
     </v-container>
