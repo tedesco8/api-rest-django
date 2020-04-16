@@ -16,6 +16,12 @@
       </v-toolbar-title>
       
       <v-spacer></v-spacer>
+      <v-avatar>
+        <img
+          src="https://cdn.vuetifyjs.com/images/john.jpg"
+          alt="John"
+        >
+      </v-avatar>
       <v-btn @click="salir()" icon v-if="logueado">
         <v-icon>logout</v-icon>
       </v-btn>
@@ -68,6 +74,16 @@
               </v-list-item-action>
               <v-list-item-title>
                 Contacto
+              </v-list-item-title>
+            </v-list-item>
+          </template>
+          <template>
+            <v-list-item :to="{name: 'Colaborador'}">
+              <v-list-item-action>
+                <v-icon>aspect_ratio</v-icon>
+              </v-list-item-action>
+              <v-list-item-title>
+                Mis contenedores
               </v-list-item-title>
             </v-list-item>
           </template>
@@ -163,6 +179,7 @@
     data () {
       return {
         drawer: false,
+        logueado: true
       }
     }
   };

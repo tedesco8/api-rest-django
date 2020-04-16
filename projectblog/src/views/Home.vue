@@ -7,7 +7,7 @@
       <!--PARALLAX-->
       <Parallax />
     <!--MAPA-->
-      <Maps :control="control"/>
+      <Maps :contenedores="contenedores"/>
       
     <!--CARDS-->
       <Card />
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import axios from "axios";
   import Maps from '../components/Maps.vue'
   import Slider from '../components/Slider.vue'
   import Card from '../components/Cards.vue'
@@ -25,7 +26,7 @@
     data() 
     {
         return {
-            control: false
+            contenedores: []
         }
     },
     components: {
@@ -34,6 +35,15 @@
       Card,
       Presentation,
       Parallax
+    },
+    mounted: function () {
+      axios.get('api/coordenadas/coordenadas/?activo=true')
+      .then( r => {
+        this.contenedores = r.data.results;
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
     }
   
   }

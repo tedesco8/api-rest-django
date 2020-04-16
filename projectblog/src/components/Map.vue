@@ -6,7 +6,7 @@
             </l-tile-layer>
             <l-marker 
                 :key="index"
-                v-for="(c, index) in cont"
+                v-for="(c, index) in contenedores"
                 :lat-lng="latlng(c.lat, c.lng)"
             >
                 <l-popup>
@@ -58,7 +58,7 @@ import { LMap, LTileLayer, LPopup, LMarker } from 'vue2-leaflet';
             }
         },
         props: {
-            cont: Array
+            contenedores: Array
         },
         components: {
             LMap,
