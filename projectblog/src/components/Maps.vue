@@ -18,7 +18,7 @@
             return {
                 //es brew
                 cont: [],
-                user: 8
+                user: 13
             }
         },
         props: {
@@ -29,11 +29,10 @@
         },
         mounted: function () {
           debugger;
-          let me = this;
-          if(me.props.control) {
-            axios.get(`api/coordenadas/coordenadas/?colaborador=${this.user}`)
+          if(this.control) {
+            axios.get(`api/coordenadas/coordenadas/${this.user}/propios/`)
             .then( r => {
-              this.cont = r.data.results;
+              this.cont = r.data;
             })
             .catch(function(error) {
               console.log(error);

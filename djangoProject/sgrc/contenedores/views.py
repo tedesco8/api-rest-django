@@ -10,12 +10,26 @@ from rest_framework.response import Response
 #debugger
 import pdb
 
-#APIView para personalizar por completo
+#ModelViewSet genera todos los los endpoint de CRUD
 class CoordenadasList(viewsets.ModelViewSet):
     authentication_classes = ()
     permission_classes = ()
     queryset = Contenedor.objects.all()
     serializer_class = ContenedorWriteSerializer
+
+    @action(detail=True,methods=['GET',])
+    def propios(self,request,pk = None):
+        try:
+            queryset = Contenedor.objects.filter(colaborador=pk)
+            contenedor_srlzr = ContenedorWriteSerializer(queryset,many=True)
+            return Response(
+                contenedor_srlzr.data
+                )    
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
 
 #ModelViewSet genera todos los los endpoint de CRUD  
 class ContenedorViewSet(viewsets.ModelViewSet):
