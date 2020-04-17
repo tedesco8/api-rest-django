@@ -8,7 +8,7 @@ import axios from 'axios'
 Vue.config.productionTip = false
 
 //axios.defaults.baseURL='https://sistema-full.herokuapp.com/api/'
-axios.defaults.baseURL='http://localhost:8000'
+axios.defaults.baseURL='https://sgrcapi.herokuapp.com'
 
 
 new Vue({

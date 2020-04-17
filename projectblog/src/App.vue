@@ -16,7 +16,7 @@
       </v-toolbar-title>
       
       <v-spacer></v-spacer>
-      <v-avatar>
+      <v-avatar v-if="logueado">
         <img
           src="https://cdn.vuetifyjs.com/images/john.jpg"
           alt="John"
@@ -78,7 +78,7 @@
             </v-list-item>
           </template>
           <template>
-            <v-list-item :to="{name: 'Colaborador'}">
+            <v-list-item v-if="logueado" :to="{name: 'Colaborador'}">
               <v-list-item-action>
                 <v-icon>aspect_ratio</v-icon>
               </v-list-item-action>
@@ -179,7 +179,7 @@
     data () {
       return {
         drawer: false,
-        logueado: true
+        logueado: false
       }
     }
   };
