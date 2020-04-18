@@ -58,7 +58,8 @@ export default new Vuex.Store({
         refresh = tokens.refresh;
         debugger;
         axios.post(
-          "v2/login/refresh",{refresh:refresh,access:access},).then(response=>{
+          "v2/login/refresh",{refresh:refresh,access:access},)
+          .then(response=>{
             debugger;
             commit("setTokens", response.data);
             const user = getTokenVar(tokens.access,'user_id');

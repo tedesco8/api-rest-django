@@ -55,8 +55,6 @@ export default {
                 { text: "Colaborador", value: "colaborador", sortable: true },
                 { text: "Descripción", value: "descripcion", sortable: false },
                 { text: "Peso", value: "weight", sortable: true },
-                { text: "Latitud", value: "lat", sortable: false },
-                { text: "Longitud", value: "lng", sortable: false },
                 { text: "Estado", value: "activo", sortable: false },
                 { text: "Opciones", value: "opciones", sortable: false }
             ]

@@ -30,5 +30,7 @@
 /* eslint-disable no-debugger */
 </script>
 <style>
-
+    .container {
+        z-index: 0;
+    }
 </style>

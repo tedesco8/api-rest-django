@@ -14,7 +14,7 @@ Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-axios.defaults.baseURL='https://sgrcapi.herokuapp.com';
+axios.defaults.baseURL='http://localhost:8000/'; 
 
 Vue.config.productionTip = false
 

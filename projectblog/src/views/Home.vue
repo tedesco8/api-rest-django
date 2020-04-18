@@ -36,15 +36,18 @@
       Presentation,
       Parallax
     },
+    /* eslint-disable no-debugger */
     mounted: function () {
-      axios.get('api/coordenadas/coordenadas/?activo=true')
+      debugger;
+      axios.get(`api/coordenadas/coordenadas/True/activos/`)
       .then( r => {
-        this.contenedores = r.data.results;
+        this.contenedores = r.data;
       })
       .catch(function(error) {
         console.log(error);
       })
     }
+    /* eslint-disable no-debugger */
   
   }
 </script>

@@ -18,6 +18,20 @@ class CoordenadasList(viewsets.ModelViewSet):
     serializer_class = ContenedorWriteSerializer
 
     @action(detail=True,methods=['GET',])
+    def activos(self,request,t = None):
+        try:
+            queryset = Contenedor.objects.filter(activo=t)
+            contenedor_srlzr = ContenedorWriteSerializer(queryset)
+            return Response(
+                contenedor_srlzr.data
+                )    
+        except Exception as e:
+            return Response(
+                str(e),
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+
+    @action(detail=True,methods=['GET',])
     def propios(self,request,pk = None):
         try:
             queryset = Contenedor.objects.filter(colaborador=pk)
