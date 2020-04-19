@@ -113,7 +113,13 @@
         </v-dialog>
       </v-toolbar>
       <!--Tabla-->
-      <v-data-table :headers="headers" :items="usuarios" :search="search" class="elevation-1">
+      <v-data-table :headers="headers" :items="usuarios" :search="search" 
+      class="elevation-1"
+      :page.sync="page"
+      :items-per-page="itemsPerPage"
+      hide-default-footer
+      @page-count="pageCount = $event"
+      > 
         <template v-slot:item.groups="{item}">
         <div v-if="item.groups.length>0">
           <span v-for="group in item.groups" :key="group">{{ " " + group.name }}</span>
@@ -158,6 +164,7 @@
           <v-btn color="primary" @click="listar()">Resetear</v-btn>
         </template>
       </v-data-table>
+      <v-pagination v-model="page" :length="pageCount"></v-pagination>
     </v-flex>
   </v-layout>
 </template>
@@ -169,6 +176,9 @@ export default {
       dialog: false,
       search: "",
       usuarios: [],
+      itemsPerPage:10,
+      page:1,
+      pageCount:0,
       headers: [
         { text: "Id", value: "id", sortable: true },
         { text: "Username", value: "username", sortable: true },        
@@ -264,10 +274,13 @@ export default {
       let header = { Authorization: cuerpoHeader };
       let configuracion = { headers: header }; 
       axios
-        .get("/api/usuarios/users?no_paginate=1", configuracion)
+        //.get("/api/usuarios/users?no_paginate=1", configuracion)
+        .get("/api/usuarios/users", configuracion)
         .then(function(response) {
-          //me.usuarios = response.data.results;
-          me.usuarios = response.data;
+          me.usuarios = response.data.results;
+          //me.usuarios = response.data;
+          me.pageCount = Math.round(response.data.count/me.itemsPerPage);
+          debugger;
         })
         .catch(function(error) {
           console.log(error);

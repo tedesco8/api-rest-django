@@ -38,8 +38,8 @@
     },
     /* eslint-disable no-debugger */
     mounted: function () {
-      debugger;
-      axios.get(`api/coordenadas/coordenadas/True/activos/`)
+      const activos=true;
+      axios.get(`api/coordenadas/coordenadas/activos/?activos=${activos}`)
       .then( r => {
         this.contenedores = r.data;
       })

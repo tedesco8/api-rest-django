@@ -17,11 +17,14 @@ class CoordenadasList(viewsets.ModelViewSet):
     queryset = Contenedor.objects.all()
     serializer_class = ContenedorWriteSerializer
 
-    @action(detail=True,methods=['GET',])
-    def activos(self,request,t = None):
+    @action(detail=False,methods=['GET',])
+    def activos(self,request):
+        activos_str = request.query_params.get('activos')        
+        activos = True if activos_str=='true' else False
+
         try:
-            queryset = Contenedor.objects.filter(activo=t)
-            contenedor_srlzr = ContenedorWriteSerializer(queryset)
+            queryset = Contenedor.objects.filter(activo=activos)
+            contenedor_srlzr = ContenedorWriteSerializer(queryset,many=True)
             return Response(
                 contenedor_srlzr.data
                 )    
