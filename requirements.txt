@@ -10,7 +10,7 @@ httpie==2.0.0
 idna==2.9
 mysqlclient==1.4.6
 Pygments==2.6.1
-PyJWT==1.7.1
+PyJWT==2.4.0
 python-decouple==3.3
 pytz==2019.3
 requests==2.23.0
